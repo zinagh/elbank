@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+       product_image:
+           uri_prefix: /Bankiz/cin
+           upload_destination: '%kernel.project_dir%/public/Bankiz/cin'
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
