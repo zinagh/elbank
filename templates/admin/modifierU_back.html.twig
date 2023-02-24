@@ -1,0 +1,106 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}EL Bank - Modifier utilisateur{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formModU , {'attr':{'novalidate':'novalidate'}}) }}
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">CIN</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formModU.cin_u) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formModU.cin_u) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Nom</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formModU.nom_u) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formModU.nom_u) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Prenom</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formModU.prenom_u) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formModU.prenom_u) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Date naissance</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formModU.date_naissance) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formModU.date_naissance) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Adresse Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formModU.email_u) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formModU.email_u) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Numero telephone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formModU.num_tel) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formModU.num_tel) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Role</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formModU.role) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formModU.role) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-success" style="background-color: #1c294e">Modifier</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{ form_end(formModU) }}
+
+{% endblock %}

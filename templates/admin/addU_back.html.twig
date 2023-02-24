@@ -1,0 +1,222 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Bankiz - ajouter utilisateur{% endblock %}
+{% block navbar %}
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('dashboard_back') }}" style="background-color: white;">
+            <div class="sidebar-brand-icon">
+                <img src="{{ asset ('BackOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="100">
+            </div>
+            <!-- <div class="sidebar-brand-text mx-3">Bankiz</div> -->
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('dashboard_back') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('back_utilisateur') }}">
+                <i class='fas fa-user-alt' style='font-size:17px'></i>
+                <span>Utilisateurs</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('back_reclamation') }}">
+                <i class="fa fa-newspaper-o" style="font-size:17px"></i>
+                <span>Réclamations</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        {#            <li class="nav-item">#}
+        {#                <a class="nav-link" href="{{ path('blank_page_back') }}">#}
+        {#                    <i class='fas fa-file-signature' style='font-size:17px'></i>#}
+        {#                    <span>Assurances</span></a>#}
+        {#            </li>#}
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Emprunts</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Custom Components:</h6>
+                    <a class="collapse-item" href="{{ path('affichCredit') }}">Crédits</a>
+                    <a class="collapse-item" href="{{ path('affichOperationCredit') }} ">Opérations crédit</a>
+                </div>
+            </div>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherCarte') }}">
+                <i class='far fa-credit-card' style='font-size:17px'></i>
+                <span>Cartes</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherCategorieCarte') }}">
+                <i class='far fa-credit-card' style='font-size:17px'></i>
+                <span>Categorie</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherchequierb') }}">
+                <i class='fas fa-money-check-alt' style='font-size:17px;'></i>
+                <span>Chèques & Chéquiers</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('comptes') }}">
+                <i class='fas fa-piggy-bank' style='font-size:17px;'></i>
+                <span>Comptes Bancaires</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('transactions') }}">
+                <i class='fas fa-coins' style='font-size:17px;'></i>
+                <span>Transactions</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    </ul>
+{% endblock %}
+{% block body %}
+<div class="grix xs4 container">
+    {{ form_start(formAddU , {'attr':{'novalidate':'novalidate'}}) }}
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">CIN</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.cin_u) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.cin_u) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Nom</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.nom_u) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.nom_u) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Prenom</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.prenom_u) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.prenom_u) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Date naissance</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.date_naissance) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.date_naissance) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Adresse Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.email_u) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.email_u) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Numero telephone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.num_tel) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.num_tel) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Role</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.role) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.role) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Mot de passe</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.mot_de_passe) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.mot_de_passe) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h6 class="mb-0">Confirmer mot de passe</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ form_widget(formAddU.confirme_mot_de_passe) }}
+                    </div>
+                    <div style="color: red">
+                        {{ form_errors(formAddU.confirme_mot_de_passe) }}
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                    style="height: 45px; padding: 10px 15px; background-color: #1c294e ">Ajouter</button>
+        </div>
+    </div>
+    {{ form_end(formAddU) }}
+</div>
+{% endblock %}
