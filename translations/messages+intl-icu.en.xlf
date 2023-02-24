@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="dJ4ujQy" resname="Poste modifiéé avec succès">
+        <source>Poste modifiéé avec succès</source>
+        <target>Item modified successfully</target>
+      </trans-unit>
+      <trans-unit id="sUrHikb" resname="Articles">
+        <source>Articles</source>
+        <target>Items</target>
+      </trans-unit>
+      <trans-unit id="mP7R6gi" resname="Publié  le">
+        <source>Publié  le</source>
+        <target>Published on</target>
+      </trans-unit>
+      <trans-unit id="s.yd5Sb" resname="à">
+        <source>à</source>
+        <target>at</target>
+      </trans-unit>
+      <trans-unit id="Hk9qujb" resname="dans la categorie">
+        <source>dans la categorie</source>
+        <target>in category</target>
+      </trans-unit>
+      <trans-unit id="ydnSxL6" resname="par">
+        <source>par</source>
+        <target>by</target>
+      </trans-unit>
+      <trans-unit id="xGWsLuh" resname="Lire la suite">
+        <source>Lire la suite</source>
+        <target>Read more</target>
+      </trans-unit>
+      <trans-unit id="F0TzO7W" resname="Poste créé  avec succès">
+        <source>Poste créé  avec succès</source>
+        <target>Item created successfully</target>
+      </trans-unit>
+      <trans-unit id="KXKBHp." resname="Vous pouvez supprimer que vos articles !">
+        <source>Vous pouvez supprimer que vos articles !</source>
+        <target>You can only delete your items !</target>
+      </trans-unit>
+      <trans-unit id="uvpdirZ" resname="Poste supriméé avec succès !">
+        <source>Poste supriméé avec succès !</source>
+        <target>Item deleted successfully !</target>
+      </trans-unit>
+      <trans-unit id="d.wzFYc" resname="Vous pouvez modifier que vos articles !">
+        <source>Vous pouvez modifier que vos articles !</source>
+        <target>You can modify only your items !</target>
+      </trans-unit>
+      <trans-unit id="1eGtFIO" resname="Retour page des Articles">
+        <source>Retour page des Articles</source>
+        <target>Back to Articles page</target>
+      </trans-unit>
+      <trans-unit id="9f5.pde" resname="Article Detaillé">
+        <source>Article Detaillé</source>
+        <target>Detailed Article</target>
+      </trans-unit>
+      <trans-unit id="sFupBD0" resname="Modifier |">
+        <source>Modifier |</source>
+        <target>Update |</target>
+      </trans-unit>
+      <trans-unit id="Xl0CFs4" resname="Supprimer">
+        <source>Supprimer</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="FE1Hl3h" resname="j'aime">
+        <source>j'aime</source>
+        <target>Like</target>
+      </trans-unit>
+      <trans-unit id="7BTbom3" resname="-Ajouter une publication-">
+        <source>-Ajouter une publication-</source>
+        <target>-Add a post-</target>
+      </trans-unit>
+      <trans-unit id="tqv.E.2" resname="Exprimez-vous en publiant des publications">
+        <source>Exprimez-vous en publiant des publications !</source>
+        <target>Express yourself by posting !</target>
+      </trans-unit>
+      <trans-unit id="2DxnAFS" resname="&lt;input class=&quot;btn btn-primary py-3 px-5&quot; type=&quot;submit&quot; style=&quot;background-color: #ffc650; border-color: #ffc650;&quot; value=&quot;Enregistrer publication&quot; formnovalidate&gt;">
+        <source>&lt;input class="btn btn-primary py-3 px-5" type="submit" style="background-color: #ffc650; border-color: #ffc650;" value="Enregistrer publication" formnovalidate&gt;</source>
+        <target><![CDATA[__<input class="btn btn-primary py-3 px-5" type="submit" style="background-color: #ffc650; border-color: #ffc650;" value="Enregistrer publication" formnovalidate>]]></target>
+      </trans-unit>
+      <trans-unit id="8CJuGyz" resname="Liste des commentaires">
+        <source>Liste des commentaires</source>
+        <target>List of comments</target>
+      </trans-unit>
+      <trans-unit id="3pk2Avb" resname="Par">
+        <source>Par</source>
+        <target>by</target>
+      </trans-unit>
+      <trans-unit id="ZZip41Q" resname="Ecrire un commentaire">
+        <source>Ecrire un commentaire</source>
+        <target>Write a comment</target>
+      </trans-unit>
+      <trans-unit id="cR5fLhm" resname="Fermer">
+        <source>Fermer</source>
+        <target>Close</target>
+      </trans-unit>
+      <trans-unit id="mwmJOpl" resname="value=&quot;Enregistrer&quot;">
+        <source>value="Enregistrer"</source>
+        <target>Save"</target>
+      </trans-unit>
+      <trans-unit id="HKIBdpa" resname="Commentaire créé avec succès Attendez la confirmation de lAdministrateur">
+        <source>Commentaire créé avec succès Attendez la confirmation de lAdministrateur</source>
+        <target>Comment created successfully Wait for confirmation from Administrator</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
