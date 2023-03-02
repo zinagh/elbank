@@ -1,0 +1,311 @@
+{% extends 'base_back.html.twig' %}
+{% block navbar %}
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('dashboard_back') }}" style="background-color: white;">
+            <div class="sidebar-brand-icon">
+                <img src="{{ asset ('BackOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="100">
+            </div>
+            <!-- <div class="sidebar-brand-text mx-3">Bankiz</div> -->
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('dashboard_back') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('back_utilisateur') }}">
+                <i class='fas fa-user-alt' style='font-size:17px'></i>
+                <span>Utilisateurs</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('back_reclamation') }}">
+                <i class="fa fa-newspaper-o" style="font-size:17px"></i>
+                <span>Réclamations</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        {#            <li class="nav-item">#}
+        {#                <a class="nav-link" href="{{ path('blank_page_back') }}">#}
+        {#                    <i class='fas fa-file-signature' style='font-size:17px'></i>#}
+        {#                    <span>Assurances</span></a>#}
+        {#            </li>#}
+
+        <li class="nav-item active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Emprunts</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Custom Components:</h6>
+                    <a class="collapse-item active" href="{{ path('affichCredit') }}">Crédits</a>
+                    <a class="collapse-item" href="{{ path('affichOperationCredit') }} ">Opérations crédit</a>
+                </div>
+            </div>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherCarte') }}">
+                <i class='far fa-credit-card' style='font-size:17px'></i>
+                <span>Cartes</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherCategorieCarte') }}">
+                <i class='far fa-credit-card' style='font-size:17px'></i>
+                <span>Categorie</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherchequierb') }}">
+                <i class='fas fa-money-check-alt' style='font-size:17px;'></i>
+                <span>Chèques & Chéquiers</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('comptes') }}">
+                <i class='fas fa-piggy-bank' style='font-size:17px;'></i>
+                <span>Comptes Bancaires</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('transactions') }}">
+                <i class='fas fa-coins' style='font-size:17px;'></i>
+                <span>Transactions</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    </ul>
+{% endblock %}
+{% block body %}
+
+    <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Montant demandé par les clients</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{% set i=0 %}
+                                {% set m=0 %}
+                                {% for c in credits %}
+                                    {% if c.decision==1 %}
+                                        {% set m=m+c.montCredit %}
+                                        {% set i=i+1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{m}} TND</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Le total des crédits(en TND)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{% set i=0 %}
+                                {% set m=0 %}
+                                {% for c in credits %}
+                                    {% if c.decision==1 %}
+                                        {% set m=m+c.montCredit %}
+                                        {% set i=i+1 %}
+                                    {% endif %}
+                                {% endfor %}</div>
+                            {{m}} dt
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">TAUX DES CRÉDITS ACCEPTÉS
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> {% set i=0 %}
+                                        {% for c in credits %}
+                                            {% if c.decision==1 %}
+                                                {% set i=i+1 %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if (credits|length)!=0 %}
+                                            {% set accept_pct = i/(credits|length)*100 %}
+                                        {% else %}
+                                            {% set accept_pct = 0 %}
+                                        {% endif %}
+
+                                        {{accept_pct}} % acceptés</div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-info" role="progressbar"
+                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Demande De Credit</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{% set i=0 %}
+                                {% for c in credits %}
+                                    {% if c.decision==1 %}
+                                        {% set i=i+1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% set naccept_pct = (credits|length)-i %}
+                                {{naccept_pct}} Demandes</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>Liste des crédits</h1>
+    <div class="card-body">
+        <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Taux des crédits acceptés
+                </div>
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+
+                            {% set i=0 %}
+                            {% for c in credits %}
+                                {% if c.decision==1 %}
+                                    {% set i=i+1 %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if (credits|length)!=0 %}
+                                {% set accept_pct = i/(credits|length)*100 %}
+                            {% else %}
+                                {% set accept_pct = 0 %}
+                            {% endif %}
+                            {{accept_pct}}% acceptés
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="progress progress-sm mr-2">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow={{ accept_pct }} aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <form method="post" action="{{ path('rechercheBytype') }}" >
+            <button  class="btn btn-primary btn-lg btn-block" style="height: 45px; padding: 10px 15px; ">Rechercher</button>
+        </form>
+        <form method="post" action="{{ path('ajoutCredit') }}" >
+            <button class="btn btn-secondary btn-lg btn-block" style="height: 45px; padding: 10px 15px; ">Ajouter un crédit</button><br>
+        </form>
+    </div>
+
+    <table border="1">
+        <tr>
+            <th>Num crédit</th>
+            <th>Montant crédit</th>
+            <th>Date première échéance</th>
+            <th>Date dernière échéance</th>
+            <th>Duréé crédit</th>
+            <th>Echéance</th>
+            <th>Taux d'interet</th>
+            <th>Décision</th>
+            <th>Etat crédit</th>
+            <th>Type crédit</th>
+            <th>numCompte</th>
+
+            <th>Supprimer</th>
+            <th>Modifier</th>
+            <th>Accepter</th>
+
+        </tr>
+        <tr {% for c in credits %}>
+            <td>{{ c.id }}</td>
+            <td>{{ c.montCredit }}</td>
+            <td>{{ c.datepe |date('d-m-Y')}}</td>
+            <td>{{ c.datede |date('d-m-Y')}}</td>
+            <td>{{ c.dureeC }}</td>
+            <td>{{ c.echeance |date('d-m-Y')}}</td>
+            <td>{{ c.tauxInteret }}</td>
+            <td>{{ c.decision }}</td>
+            <td>{{ c.etatCredit }}</td>
+            <td>{{ c.typeCredit }}</td>
+            <td>{{ c.numerocompte.numcompte }}</td>
+
+
+
+            <td><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ path("suppCredit",{'id':c.id}) }}">Supprimer</a></td>
+            <td><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ path("modifCredit",{'id':c.id}) }}">Modifier</a></td>
+            <td><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ path("acceptCredit",{'id':c.id}) }}">Accepter</a></td>
+
+        </tr {% endfor %}>
+    </table>
+{% endblock %}

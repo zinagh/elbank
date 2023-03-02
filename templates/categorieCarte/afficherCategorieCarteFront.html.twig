@@ -1,0 +1,31 @@
+{% extends 'base_front_connecte.html.twig' %}
+{% block carousel %}
+
+{% endblock %}
+{% block body %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="section-title text-center">
+            
+            <h1 class="display-5 mb-5">Liste de categories cartes</h1>
+        </div>
+    <table border="1" class="table table-striped">
+        <tr>
+            <th scope="col">Nom de la Categorie</th>
+            <th scope="col">description</th>
+            <th scope="col">prix</th>
+            <th scope="col">montantmax</th>
+
+        </tr>
+        <tr {% for c in categorieCarte %}>
+        <td>{{ c.type }}</td>
+        <td>{{ c.description }}</td>
+        <td>{{ c.prix }}</td>
+        <td>{{ c.montantmax}}</td>
+        
+       
+    </tr {% endfor %}>
+    </table>
+    </div>
+    </div>
+{% endblock %}
