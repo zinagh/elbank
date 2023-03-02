@@ -1,0 +1,98 @@
+{% extends 'base_back.html.twig' %}
+{% block navbar %}
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('dashboard_back') }}" style="background-color: white;">
+            <div class="sidebar-brand-icon">
+                <img src="{{ asset ('BackOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="100">
+            </div>
+            <!-- <div class="sidebar-brand-text mx-3">Bankiz</div> -->
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('dashboard_back') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('back_utilisateur') }}">
+                <i class='fas fa-user-alt' style='font-size:17px'></i>
+                <span>Utilisateurs</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('back_reclamation') }}">
+                <i class="fa fa-newspaper-o" style="font-size:17px"></i>
+                <span>Réclamations</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        {#            <li class="nav-item">#}
+        {#                <a class="nav-link" href="{{ path('blank_page_back') }}">#}
+        {#                    <i class='fas fa-file-signature' style='font-size:17px'></i>#}
+        {#                    <span>Assurances</span></a>#}
+        {#            </li>#}
+
+        <li class="nav-item active">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Emprunts</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Custom Components:</h6>
+                    <a class="collapse-item active" href="{{ path('affichCredit') }}">Crédits</a>
+                    <a class="collapse-item" href="{{ path('affichOperationCredit') }} ">Opérations crédit</a>
+                </div>
+            </div>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherCarte') }}">
+                <i class='far fa-credit-card' style='font-size:17px'></i>
+                <span>Cartes</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherCategorieCarte') }}">
+                <i class='far fa-credit-card' style='font-size:17px'></i>
+                <span>Categorie</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('afficherchequierb') }}">
+                <i class='fas fa-money-check-alt' style='font-size:17px;'></i>
+                <span>Chèques & Chéquiers</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('comptes') }}">
+                <i class='fas fa-piggy-bank' style='font-size:17px;'></i>
+                <span>Comptes Bancaires</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('transactions') }}">
+                <i class='fas fa-coins' style='font-size:17px;'></i>
+                <span>Transactions</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    </ul>
+{% endblock %}
+{% block body %}
+<h1>Modifier un crédit</h1>
+{{ form(f,{'attr':{'novalidate':'novalidate'}}) }}
+    {{ form_end(f) }}
+
+{% endblock %}

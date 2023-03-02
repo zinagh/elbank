@@ -31,7 +31,7 @@ class ChequierController extends AbstractController
      * @Route("/AjouterChequier/{id}", name="AjouterChequier")
      * @IsGranted("ROLE_USER")
      */
-    public function ajouter(Request $request, $id): Response
+    public function ajouter(Request $request,SmsGatewayService $smsGateway, $id): Response
     {
         $repository = $this->getDoctrine()->getRepository(Compte::class);
         $compte = $repository->findOneByFullname($id);
@@ -54,8 +54,20 @@ class ChequierController extends AbstractController
             $em=$this->getDoctrine()->getManager();
             $em->persist($cheques);
             $em->flush();
+            try {
+                $smsGateway->send([
+                    [
+                        "to" => '00216'.$number,
+                        "from" => "EL Bank",
+                        "message" => "Votre chequier a été bloqué"
+                    ]
+                ]);
+            } catch (\Throwable $apiException) {
+                // HANDLE THE EXCEPTION
+                dump($apiException);
+            }
 
-            $this->addFlash("success","L'employer a reçu une demande du chequier") ;
+            $this->addFlash("success","L'employer a reçu un SMS de bloquage du chequier") ;
 
             return $this->redirectToRoute('cheque');
         }
@@ -68,7 +80,7 @@ class ChequierController extends AbstractController
      * @Route("/supprimer/{id}", name="suppE")
      * @IsGranted("ROLE_USER")
      */
-    public function supprimer($id): Response
+    public function supprimer($id,SmsGatewayService $smsGateway): Response
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -78,22 +90,121 @@ class ChequierController extends AbstractController
         $em->remove($chequier);
         $em->flush();
 
+        try {
+            $smsGateway->send([
+                [
+                    "to" => $number,
+                    "from" => "EL Bank",
+                    "message" => "Votre chequier a été supprimé"
+                ]
+            ]);
+        } catch (\Throwable $apiException) {
+            // HANDLE THE EXCEPTION
+            dump($apiException);
+        }
 
-
-        $this->addFlash("success","L'employer a reçu un message de suppression du chequier") ;
+        $this->addFlash("success","L'employer a reçu un SMS de bloquage du chequier") ;
         return $this->redirectToRoute('afficherchequierb');
     }
     /**
      * @Route("/afficherchequierb", name="afficherchequierb")
      * @IsGranted("ROLE_USER")
      */
-    public function afficheE(Request $request)
+    public function afficheE(Request $request, PaginatorInterface $paginator)
     {
         $repo = $this->getDoctrine()->getRepository(Chequier::class)->findAll();
-        $chequier = $repo;
+        $chequier = $paginator->paginate(
+            $repo,
+            $request->query->getInt('page', 1),
+            2
+        );
         return $this->render('chequier/index.html.twig',
             ['chequier'=>$chequier]);
     }
+
+    /**
+     * @Route ("/triup", name="croissant")
+     * @IsGranted("ROLE_USER")
+     */
+    public function orderSujetASC(ChequierRepository $repository){
+        $plans=$repository->triSujetASC();
+        return $this->render('chequier/index.html.twig', [
+            'chequier' => $plans,
+        ]);
+    }
+
+    /**
+     * @Route("/tridown", name="decroissant")
+     * @IsGranted("ROLE_USER")
+     */
+    public function orderSujetDESC(ChequierRepository $repository){
+        $plans=$repository->triSujetDESC();
+        return $this->render('chequier/index.html.twig', [
+            'chequier' => $plans,
+
+        ]);
+    }
+
+    /**
+     * @Route("/ConfirmerChequier/{id}", name="confirmation")
+     * @param $id
+     * @param SmsGatewayService $smsGateway
+     * @return
+     */
+    public function ActiverCompte($id,SmsGatewayService $smsGateway)
+    {
+        $cheques = $this->getDoctrine()->getRepository(Chequier::class)->find($id);
+        $cheques->setEtatChequier(1);
+        $number = $cheques->getClientTel();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+        try {
+            $smsGateway->send([
+                [
+                    "to" => $number,
+                    "from" => "Bankiz",
+                    "message" => "Confirmation du votre chequier a été effectué"
+                ]
+            ]);
+        } catch (\Throwable $apiException) {
+            // HANDLE THE EXCEPTION
+            dump($apiException);
+        }
+
+        $this->addFlash("success","L'employer a reçu un SMS de confirmation du chequier") ;
+        return $this->redirectToRoute('afficherchequierb', ['id' => $cheques->getNomClient()->getId()]);
+    }
+
+    /**
+     * @Route("/BloquerChequier/{id}", name="bloquage")
+     * @param $id
+     * @param SmsGatewayService $smsGateway
+     * @return
+     */
+    public function BloquerCompte($id,SmsGatewayService $smsGateway)
+    {
+        $cheques = $this->getDoctrine()->getRepository(Chequier::class)->find($id);
+        $cheques->setEtatChequier(0);
+        $number = $cheques->getClientTel();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+        try {
+            $smsGateway->send([
+                [
+                    "to" => $number,
+                    "from" => "Bankiz",
+                    "message" => "Votre chequier a été bloqué"
+                ]
+            ]);
+        } catch (\Throwable $apiException) {
+            // HANDLE THE EXCEPTION
+            dump($apiException);
+        }
+
+        $this->addFlash("success","L'employer a reçu un SMS de bloquage du chequier") ;
+        return $this->redirectToRoute('afficherchequierb', ['id' => $cheques->getNomClient()->getId()]);
+    }
+
 
 
 }

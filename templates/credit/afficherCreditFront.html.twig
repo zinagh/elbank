@@ -1,0 +1,94 @@
+{% extends 'base_front_connecte.html.twig' %}
+{% block carousel %}
+
+    <div class="section-title text-center">
+        {%  for type, messages in app.flashes %}
+            {%  for message in messages %}
+                <div  class="alert alert-{{ type }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor%}
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block body %}
+<br>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <form method="post" action="{{ path('ajoutOperationCreditFront') }}" >
+            <button  class="btn btn-primary btn-lg btn-block" style="
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+">Ajouter un Paiement de Credit</button>
+        </form><br>
+        <form method="post" action="{{ path('ajoutCreditFront') }}" >
+            <button class="btn btn-primary btn-lg btn-block" style="
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+">demande credit</button>
+        </form><br>
+        <form method="post" action="#" >
+            <button class="btn btn-secondary btn-lg btn-block" style="
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+">simuler credit</button>     </form>
+        <td></td>
+    </div>
+
+    <table border="1" class="table table-striped">
+        <tr>
+            <th scope="col">Num crédit</th>
+            <th scope="col">Montant crédit</th>
+            <th scope="col">Date première échéance</th>
+            <th scope="col">Date dernière échéance</th>
+            <th scope="col">Duréé crédit</th>
+            <th scope="col">Echéance</th>
+            <th scope="col">Taux d'interet</th>
+            <th scope="col">Etat crédit</th>
+            <th scope="col">Type crédit</th>
+            <th scope="col">numCompte</th>
+
+
+
+        </tr>
+        <tr {% for c in Credit %}>
+            <td>{{ c.id }}</td>
+            <td>{{ c.montCredit }}</td>
+            <td>{{ c.datepe |date('d-m-Y')}}</td>
+            <td>{{ c.datede |date('d-m-Y')}}</td>
+            <td>{{ c.dureeC }}</td>
+            <td>{{ c.echeance |date('d-m-Y')}}</td>
+            <td>{{ c.tauxInteret }}</td>
+            <td>{{ c.etatCredit }}</td>
+            <td>{{ c.typeCredit }}</td>
+            <td>{{ c.numerocompte.numcompte }}</td>
+
+        </tr {% endfor %}>
+    </table>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}EL Bank - Transaction{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Transaction</h1>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Titre :Transaction</h6>
+                <form action="/my-handling-form-page" method="post">
+  <div>
+    <label for="id_client_id">id_client_id :</label>
+    <input type="text" id="id_client_id" name="user_name" />
+  <div>
+  
+  <div>
+    <label for="mail">E-mail :</label>
+    <input type="email" id="mail" name="user_email" />
+  </div>
+   <div>
+    <label for="mail">E-mail :</label>
+    <input type="email" id="mail" name="user_email" />
+  </div>
+   <div>
+    <label for="mail">E-mail :</label>
+    <input type="email" id="mail" name="user_email" />
+  </div>
+   <div>
+    <label for="mail">E-mail :</label>
+    <input type="email" id="mail" name="user_email" />
+  </div>
+   <div>
+    <label for="mail">E-mail :</label>
+    <input type="email" id="mail" name="user_email" />
+  </div>
+  <div>
+    <label for="msg">Message :</label>
+    <textarea id="msg" name="user_message"></textarea>
+  </div>
+</form>
+  ...
+                <textarea name="textarea"
+   rows="5" cols="30"
+   disabled>Je suis désactivé</textarea>
+<textarea name="textarea"
+   rows="5" cols="30"
+   readonly>Je suis en lecture seule</textarea>
+            </div>
+            <div class="card-body">
+               
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+{% endblock %}

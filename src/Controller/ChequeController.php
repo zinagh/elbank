@@ -56,36 +56,36 @@ class ChequeController extends AbstractController
                 'form'=>$form->createView()
             ]);
     }
-   /* /**
-     * @Route("/afficheE", name="afficheE")
-     * @IsGranted("ROLE_USER")
-     */
- /*   public function afficheE()
-    {
-        $user=$this->getUser();
-        $chequiers=$user->getChequiers();
-        if (!$chequiers->isEmpty())
-        {
-            $test=false;
+    /* /**
+      * @Route("/afficheE", name="afficheE")
+      * @IsGranted("ROLE_USER")
+      */
+    /*   public function afficheE()
+       {
+           $user=$this->getUser();
+           $chequiers=$user->getChequiers();
+           if (!$chequiers->isEmpty())
+           {
+               $test=false;
 
-            $lchequier =  $chequiers->last();
-            $a=count($chequiers);
-            while(!$test)
-            {
-                if($lchequier->getEtatChequier()==0)
-                {
-                    $lchequier=$chequiers[$a-1];
-                    $a--;
-                }
-                else $test=true;
-            }
-        }
-        $cheques=$lchequier->getCheques();
-        return $this->render('Cheque/AfficherCheque.html.twig',
-            ['c'=>$cheques]
-        );
+               $lchequier =  $chequiers->last();
+               $a=count($chequiers);
+               while(!$test)
+               {
+                   if($lchequier->getEtatChequier()==0)
+                   {
+                       $lchequier=$chequiers[$a-1];
+                       $a--;
+                   }
+                   else $test=true;
+               }
+           }
+           $cheques=$lchequier->getCheques();
+           return $this->render('Cheque/AfficherCheque.html.twig',
+               ['c'=>$cheques]
+           );
 
-    } */
+       } */
     /**
      *@param ChequesRepository $repository
      * @Route("/afficheE", name="afficheE")
@@ -117,7 +117,28 @@ class ChequeController extends AbstractController
         }
         return $this->render('Cheque/ModifierCheque.html.twig',array("form"=>$form->createView()));
     }
+    /**
+     * @Route ("/triupcheque", name="croissantcheque")
+     * @IsGranted("ROLE_USER")
+     */
+    public function orderSujetASC(ChequesRepository $repository){
+        $plans=$repository->triSujetASC();
+        return $this->render('Cheque/AfficherCheque.html.twig', [
+            'c' => $plans,
+        ]);
+    }
 
+    /**
+     * @Route("/tridowncheque", name="decroissantcheque")
+     * @IsGranted("ROLE_USER")
+     */
+    public function orderSujetDESC(ChequesRepository $repository){
+        $plans=$repository->triSujetDESC();
+        return $this->render('Cheque/AfficherCheque.html.twig', [
+            'c' => $plans,
+
+        ]);
+    }
 
 
     /**
@@ -130,7 +151,26 @@ class ChequeController extends AbstractController
         );
     }
 
+    /**
+     * @Route("/encaisser/{id}", name="encaissement")
+     */
+    public function encaisserId($id,Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Cheques::class);
+        $cheque=$repo->find($id);
+        $currP=$cheque->getProprietaire()->getSoldeCompte();
+        $currD=$cheque->getDestinataire()->getSoldeCompte();
+        if($cheque->getMontant() > $currP)
+        {
+            $cheque->getDestinataire()->setSoldeCompte($currD+$cheque->getMontant());
+            $cheque->getProprietaire()->setSoldeCompte($currP-$cheque->getMontant());
+            $em=$this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->render('Cheque/AfficheChecks.html.twig',['c'=>$repo->findAll(),'Message'=>'Succès Transaction']);
+        }
+        return $this->render('Cheque/AfficheChecks.html.twig',['c'=>$repo->findAll(),'Message'=>'Fonds unsufisants']);
 
+    }
     /**
      * @Route("/supprimerCheque/{id}", name="supprimerCheque")
      */
