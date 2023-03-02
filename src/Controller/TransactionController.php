@@ -183,5 +183,82 @@ class TransactionController extends AbstractController
         }
     }
 
+    /**
+     * @Route("/admin/TriNomEmetteur", name="tri_nom_emetteur")
+     */
+    public function TriNomEmetteur()
+    {
+        $transactions = $this->getDoctrine()->getRepository(Transaction::class)->TriNomEmetteur();
+        return $this->render("transaction/BackOffice/affichage_transaction.html.twig", array('transactions' => $transactions));
+    }
 
+    /**
+     * @Route("/admin/TriNomRecepteur", name="tri_nom_recepteur")
+     */
+    public function TriNomRecepteur()
+    {
+        $transactions = $this->getDoctrine()->getRepository(Transaction::class)->TriNomRecepteur();
+        return $this->render("transaction/BackOffice/affichage_transaction.html.twig", array('transactions' => $transactions));
+    }
+
+    /**
+     * @Route("/admin/TriDateTransaction", name="tri_date_trans")
+     */
+    public function TriDateTransaction()
+    {
+        $transactions = $this->getDoctrine()->getRepository(Transaction::class)->TriDate();
+        return $this->render("transaction/BackOffice/affichage_transaction.html.twig", array('transactions' => $transactions));
+    }
+    /**
+     * @Route("/admin/TriTransaction", name="tri_etat_trans")
+     */
+    public function TriEtatTransaction()
+    {
+        $transactions = $this->getDoctrine()->getRepository(Transaction::class)->TriEtatTransaction();
+        return $this->render("transaction/BackOffice/affichage_transaction.html.twig", array('transactions' => $transactions));
+    }
+    /**
+     * @Route("/admin/ValiderTransactionBack/{id}", name="valider_trans_back")
+     */
+    public function ValiderTransactionBack($id)
+    {
+        $transaction = $this->getDoctrine()->getRepository(Transaction::class)->find($id);
+        $transaction->setEtatTransaction(1);
+
+        $RIB_emetteur = $transaction->getRIBEmetteur();
+        $RIB_recepteur = $transaction->getRIBRecepteur();
+        $montant = $transaction->getMontantTransaction();
+
+        $emetteur = $this->getDoctrine()->getRepository(Compte::class)->find($RIB_emetteur);
+        $emetteur->setSoldeCompte($emetteur->getSoldeCompte() - $montant);
+
+        $recepteur = $this->getDoctrine()->getRepository(Compte::class)->findOneByRIB($RIB_recepteur);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        if ($recepteur) {
+            $recepteur->setSoldeCompte($recepteur->getSoldeCompte() + $montant);
+            $entityManager->persist($recepteur);
+        }
+
+        $transaction->setEtatTransaction(1);
+        $entityManager->persist($transaction);
+        $entityManager->persist($emetteur);
+        $entityManager->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+        return $this->redirectToRoute('transactions');
+    }
+
+    /**
+     * @Route("/admin/AnnulerTransactionBack/{id}", name="annuler_trans_back")
+     */
+    public function AnnulerTransactionBack($id)
+    {
+        $transaction = $this->getDoctrine()->getRepository(Transaction::class)->find($id);
+        $transaction->setEtatTransaction(2);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+        return $this->redirectToRoute('transactions');
+    }
 }

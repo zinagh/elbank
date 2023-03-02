@@ -1,0 +1,60 @@
+{% extends 'base_front_connecte.html.twig' %}
+
+{% block title %}EL Bank - Cheque{% endblock %}
+
+{% block carousel %}
+    <div class="container-fluid bg-light overflow-hidden px-lg-0" style="margin: 6rem 0;">
+        <div class="container contact px-lg-0">
+            <div class="row g-0 mx-lg-0">
+                <div class="col-lg-6 contact-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="p-lg-5 ps-lg-0">
+                        <div class="section-title text-start">
+                            <h1 class="display-5 mb-4">Demande Chequier</h1>
+                        </div>
+                        {{form_start(form,{'attr':{'novalidate': 'novalidate'}})}}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {#        {{ form_widget(form.nom_client, {'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.nom_client, 'Full Name') }}#}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form_widget(form.motif_chequier, {'attr':{'class':'form-control'}}) }}
+                                    {{ form_label(form.motif_chequier, 'Code°') }}
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    {{ form_widget(form.num_compte,{ 'attr':{'class':'form-control'}}) }}
+                                    {{ form_label(form.num_compte, 'Num RIB') }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit" style="background-color: #ffc650; border-color: #ffc650;">Demande</button>
+                            </div>
+
+
+
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{#  {% block body %}
+<div class=""container-xxl py-5 wow fadeInUp" data-wow-delay="8.1s>
+<div class=""container text-center">
+<div class=""col-lg-6">
+{{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }}
+<h4>{{  form_label(form.chequier , "chequier :") }}</h4>
+{{  form_widget(form.chequier) }}
+{{  form_errors(form.chequier) }}
+    </div>
+    </div>
+    </div>
+{% endblock %} #}

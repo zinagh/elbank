@@ -1,0 +1,33 @@
+{% extends 'base_back.html.twig'%}
+
+{% block body %}
+<h1>Liste des crédits</h1>
+<form method="post" action="{{ path('ajoutCredit') }}" >
+<button>Ajouter un crédit</button>
+</form>
+<table border="1">
+    <tr>
+    <th>Num crédit</th>
+    <th>Montant crédit</th>
+    <th>Date première échéance</th>
+    <th>Date dernière échéance</th>
+    <th>Duréé crédit</th>
+    <th>Echéance</th>
+    <th>Taux d'interet</th>
+    <th>Décision</th>
+    <th>Etat crédit</th>
+    <th>Type crédit</th>
+    <th>Supprimer</th>
+    <th>Modifier</th>
+    </tr>
+    <tr {% for c in data %}>
+        <td>{{ c.id }}</td>
+        
+        <td>{{ c.taux_interet }}</td>
+      
+       
+     
+ 
+    </tr {% endfor %}>
+</table>
+            {% endblock %}
