@@ -1,0 +1,35 @@
+{% extends 'base_front.html.twig' %}
+
+{% block title %}EL Bank - 404 Not Found{% endblock %}
+
+{% block carousel %}
+    <div style="background-image: url('{{ asset('FrontOffice/img/banko.jpg') }}');">
+
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">404 Error</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">404 Error</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
+                    <h1 class="display-1">404</h1>
+                    <h1 class="mb-4">Page Not Found -> PAGE A FAIRE</h1>
+                    <p class="mb-4">We’re sorry, the page you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
+                    <a class="btn btn-primary py-3 px-5" href="{{ path('accueil') }}"  style="background-color: #ffc650; border-color: #ffc650;">Go Back To Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+
+{% block title %}Save me  - SDFRecherche {% endblock %}
+
+{% block body %}
+
+
+
+  <table>
+      <div class="card-body">
+                <table>
+                    
+  <tr>
+    <th> id</th>
+    <th>idclient</th>
+      <th>date_ex</th>
+    <th>mp</th>
+ <th>login</th>
+ <th>num_carte</th>
+ <th>Image</th>
+     
+  </tr>
+
+
+    <tr>
+  
+     <td>{{ Carte.id }}</td>
+                <td>{{ Carte.idclient }}</td>
+                <td>{{ Carte.dateex | date('d-m-Y') }}</td>
+                <td>{{ Carte.mp }}</td>
+        <td>{{ Carte.login }}</td>
+         <td>{{ Carte.numcarte }}</td>
+         <td>{{ Carte.picture.name}}</td>
+      </tr>
+</table> 
+
+       
+              </form>
+    </div>
+</td>
+</table>
+{% endblock %}

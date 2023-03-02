@@ -69,6 +69,8 @@ class CreditController extends AbstractController
     {
         $credit = $repository->find($id);
         $form = $this->createForm(CreditType::class, $credit);
+        $form->remove('decision');
+        $form->remove('etatCredit');
         $form->add("Modifier", SubmitType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -140,8 +142,49 @@ class CreditController extends AbstractController
         return $this->render("Credit/ajoutCreditFront.html.twig", ["for" => $form->createView()]);
     }
 
+    /**
+     *Method("Post")
+     * @Route("/credit/rechercheBytype", name="rechercheBytype")
+     */
+    public function rechercheBytype(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $Credit = $em->getRepository(Credit::class)->findAll();
+        if ($request->isMethod("POST")) {
+            $typeCredit = $request->get('typeCredit');
+            $Credit = $em->getRepository(Credit::class)->findBy(array('typeCredit' => $typeCredit));
+        }
+        return $this->render("Credit/Recherche.html.twig", array('Credit' => $Credit));
 
 
+    }
 
+
+    /**
+     * @Route("/credit/acceptCredit/{id}", name="acceptCredit")
+     */
+    public function acceptCredit($id): Response
+    {
+        //Récupérer le classroom à supprimer
+        $credit = $this->getDoctrine()->getRepository(Credit::class) ->find($id);
+        $credit-> setEtatCredit("Obtenu");
+        $credit-> setDecision(1);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($credit);
+        $entityManager->flush();
+
+        $this->addFlash('message','Etat credit change vers accepté');
+        return $this->redirectToRoute('affichCredit');
+    }
+
+    /**
+     * @Route("/TrimontCredit", name="TrimontCredit")
+     */
+    public function TrimontCredit()
+    {
+        $Credit = $this->getDoctrine()->getRepository(Credit::class)->TrimontCredit();
+        return $this->render("Credit/Recherche.html.twig", array('Credit' => $Credit));
+    }
 
 }
+

@@ -1,0 +1,235 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}EL Bank - Transactions Bancaires{% endblock %}
+{% block styleperso %}
+    <style>
+        .table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            color: black;
+            font-weight: bold;
+            text-align: center;
+            width: 150px;
+        }
+
+        .input_back {
+            height: 35px;
+            width: 235px;
+        }
+
+        h5 {
+            padding: 10px 15px 10px 15px;
+        }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('dashboard_back') }}"
+           style="background-color: white;">
+            <div class="sidebar-brand-icon">
+                <img src="{{ asset('BackOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="100">
+            </div>
+            <!-- <div class="sidebar-brand-text mx-3">Bankiz</div> -->
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('dashboard_back') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('blank_page_back') }}">
+                <i class='fas fa-compte-alt' style='font-size:17px'></i>
+                <span>Utilisateurs</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('blank_page_back') }}">
+                <i class="fa fa-newspaper-o" style="font-size:17px"></i>
+                <span>Réclamations</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('blank_page_back') }}">
+                <i class='fas fa-file-signature' style='font-size:17px'></i>
+                <span>Assurances</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('blank_page_back') }}">
+                <i class='fas fa-hands-helping' style='font-size:17px'></i>
+                <span>Emprunts</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('blank_page_back') }}">
+                <i class='far fa-credit-card' style='font-size:17px'></i>
+                <span>Cartes</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('blank_page_back') }}">
+                <i class='fas fa-money-check-alt' style='font-size:17px;'></i>
+                <span>Chèques & Chéquiers</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('comptes') }}">
+                <i class='fas fa-piggy-bank' style='font-size:17px;'></i>
+                <span>Comptes Bancaires</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('transactions') }}">
+                <i class='fas fa-coins' style='font-size:17px;'></i>
+                <span>Transactions</span></a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    </ul>
+{% endblock %}
+
+{% block body %}
+    {% block bodyCompte %}
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-4 text-gray-800">Transactions Bancaires</h1>
+            <!-- Basic Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Gestion des transactions bancaires</h6>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <td style="  vertical-align:top ; ">
+                            <table style="margin-right: 20px ; ">
+                                {#                                <form action="" method="POST">#}
+                                {#                                    <tr>#}
+                                {#                                        <th>#}
+                                {#                                            <select value="sortselect" name="sortselect" class="input_back"#}
+                                {#                                                    style="width: 125px;">#}
+                                {#                                                <option value="tri_id">ID</option>#}
+                                {#                                                <option value="tri_nom">Nom Emetteur</option>#}
+                                {#                                                <option value="tri_date">Date transaction</option>#}
+                                {#                                                <option value="tri_etat">Etat transaction</option>#}
+                                {#                                            </select>#}
+                                {#                                            <input type="submit"#}
+                                {#                                                   class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"#}
+                                {#                                                   name="trier_transactions" value="Trier">#}
+                                {#                                        </th>#}
+                                {#                                    </tr>#}
+                                {#                                </form>#}
+                            </table>
+                        </td>
+
+                        {% block ajouter_transaction %}
+
+                        {% endblock %}
+                        {% block modifier_transaction %}
+
+                        {% endblock %}
+                        <form action="{{ path('transactions') }}" method="POST">
+                            <button style="position: relative; left:40px; top: 10px;">Annuler</button>
+                        </form>
+                        <table style="margin-right: 20px ; ">
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">ID </th>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">#}
+                            {#                                    <select class="input_back" name="id_transaction" id="id_transaction"#}
+                            {#                                            value="">#}
+                            {#                                        <option value=""></option>#}
+                            {#                                    </select>#}
+                            {#                                </th>#}
+                            {#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">RIB Emetteur#}
+                            {#                                </th>#}
+                            {#                                <th><input class = "input_back" type="text" name="nom_emetteur" id="rib_emetteur" value=""></th>#}
+                            {#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">Nom Emetteur</th>#}
+                            {#                                <th><input class = "input_back" type="text" name="nom_emetteur" id="nom_emetteur" value=""></th>#}
+                            {#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">RIB Récepteur</th>#}
+                            {#                                <th><input class = "input_back" type="text" name="rib_recepteur" id="rib_recepteur" value=""></th>#}
+                            {#                                </td>#}
+                            {#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">Nom Récepteur</th>#}
+                            {#                                <th><input class = "input_back" type="text" name="nom_recepteur" id="nom_recepteur" value=""></th>#}
+                            {#                                </td>#}
+                            {#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">Montant</th>#}
+                            {#                                <th><input class = "input_back" type="text" name="montant" id="montant" value=""></th>#}
+                            {#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">Description</th>#}
+                            {#                                <th><input class = "input_back" type="text" name="description" id="description" value=""></th>#}
+                            {#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">Type transaction</th>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">#}
+                            {#                                    <select class="input_back" id="type_transaction"#}
+                            {#                                            name="type_transaction">#}
+                            {#                                        <option value="Virement" selected>Virement</option>#}
+                            {#                                        <option value="Encaissement">Encaissement</option>#}
+                            {#                                        <option value="Investissement">Investissement</option>#}
+                            {#                                    </select>#}
+                            {#                                </th>#}
+                            {#                            </tr>#}
+                            {#                            <tr>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">Etat transaction</th>#}
+                            {#                                <th class="m-0 font-weight-bold text-dark">#}
+                            {#                                    <select class="input_back" id="etat_transaction" name="etat_transaction">#}
+                            {#                                        <option value="0" selected>En cours</option>#}
+                            {#                                        <option value="1">Aboutie</option>#}
+                            {#                                        <option value="2">Annulée</option>#}
+                            {#                                    </select>#}
+                            {#                                </th>#}
+                            {#                            </tr>#}
+
+                        </table>
+                        </tr>
+                        <td>
+                            {#                            <table style="vertical-align:top ; ">#}
+                            {#                                <br>#}
+
+                            {#                                <tr>#}
+                            {#                                    <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="height: 45px; padding: 10px 15px; " href="{{ path('ajouter_transaction') }}">Ajouter une transaction</a></th>#}
+                            {#                                    <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="height: 45px; padding: 10px 15px; " href="">Rechercher une transaction</a></th>#}
+                            {#                                </tr>#}
+
+                            {#                            </table>#}
+                        </td>
+                        <hr>
+                        <td>
+                            {#                            {% block ajouter %}#}
+
+                            {#                            {% endblock %}#}
+                            {% block affichage_transaction %}
+
+                            {% endblock %}
+                        </td>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base_back.html.twig'%}
+
+{% block body %}
+<h2>Recherche des opérations crédits </h2>
+<form method="POST">
+    <input type="text" name="credit">
+    <input type="submit" value="recherche">
+</form>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">OperationCredit</h6>
+    </div>
+    <div class="card-body">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <form method="post" action="{{ path('ajoutOperationCredit') }}" >
+                <button class="btn btn-primary btn-lg btn-block">Ajouter un OperationCredit</button>
+            </form></div><br>
+        <br>
+        <table border="1" class="table table-striped">
+            <tr style="  vertical-align:top ; ">
+                <th>id</th>
+                <th scope="col">credit</th>
+                <th scope="col">date_op</th>
+                <th scope="col">mont_payer</th>
+                <th scope="col">echeance</th>
+                <th scope="col">taux_interet</th>
+                <th scope="col">solvabilite</th>
+                <th scope="col">type_operation</th>
+                <th scope="col">Supprimer</th>
+                {#  <th>Modifier</th> #}
+            </tr>
+            <tr {% for c in operationCredit %}>
+                <td>{{ c.id }}</td>
+                <td>{{ c.credit }}</td>
+                <td>{{ c.dateop |date('d-m-Y') }}</td>
+                <td>{{ c.montpayer }}</td>
+                <td>{{ c.echeance |date('d-m-Y') }}</td>
+                <td>{{ c.tauxinteret }}</td>
+                <td>{{ c.solvabilite }}</td>
+                <td>{{ c.typeoperation }}</td>
+                <td><a href="{{ path("suppOperationCredit",{'id':c.id}) }}">Supprimer</a></td>
+                {#<td><a href="https://web-chat.global.assistant.watson.cloud.ibm.com/preview.html?region=eu-de&integrationID=391b1234-9990-430d-b6e3-db9e6576ea3e&serviceInstanceID=d130be5f-214b-4fd3-a600-9d4ad1ae78d1&fbclid=IwAR31LW_UYtdX1MpJNj15JXaYuuoq-R7ZqJh1zO6fD8c6-daqsqmNA8ElpmU">Modifier</a></td>
+                #}
+            </tr {% endfor %}>
+        </table>
+        {% endblock %}
