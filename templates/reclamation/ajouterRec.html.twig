@@ -1,0 +1,61 @@
+{% extends 'base_front_connecte.html.twig' %}
+
+{% block carousel %}
+
+    <div style="background-image: url('{{ asset('FrontOffice/img/banko.jpg') }}');">
+    <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Bienvenue {{ app.user.getNomU() }} {{ app.user.getPrenomU() }}</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Si vous avez un problème vous pouvez nous passer une réclamation</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="grix xs4 container">
+        {{ form_start(formRec , {'attr':{'novalidate':'novalidate'}}) }}
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Type</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ form_widget(formRec.type_rec) }}
+                        </div>
+                        <div style="color: red">
+                            {{ form_errors(formRec.type_rec) }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Description</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ form_widget(formRec.desc_rec) }}
+                        </div>
+                        <div style="color: red">
+                            {{ form_errors(formRec.desc_rec) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                    style="height: 45px; padding: 10px 15px; background-color: #1c294e ">Ajouter</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{ form_end(formRec) }}
+    </div>
+{%endblock %}

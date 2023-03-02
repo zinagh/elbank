@@ -35,7 +35,11 @@ class CarteType extends AbstractType
             //            ])
             ->add('login')
             ->add('num_carte')
-
+            ->add('PictureFile', VichImageType::class, [
+                'allow_delete' => true,
+                'delete_label' => "Delete?",
+                'image_uri' => false,
+                'download_uri' => false,])
 
           ->add('categorieCartes', EntityType::class, [
               'class' => 'App\Entity\CategorieCarte',

@@ -1,0 +1,143 @@
+{% extends 'base_front_connecte.html.twig' %}
+
+{% block title %}EL Bank - Inscription{% endblock %}
+
+{% block carousel %}
+    <div class="section-title text-center">
+        {%  for type, messages in app.flashes %}
+            {%  for message in messages %}
+                <div  class="alert alert-{{ type }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor%}
+        {% endfor %}
+    </div>
+
+    <!-- Quote Start -->
+    <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+        <div class="container quote px-lg-0">
+            <div class="row g-0 mx-lg-0">
+                <div class="col-lg-6 ps-lg-0" style="min-height: 400px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute img-fluid w-100 h-50" src="{{ asset('FrontOffice/img/bank.jpg') }}" style="object-fit: cover;" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 quote-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                    {#  <div class="p-lg-5 pe-lg-0">
+                            <h1 class="display-5 mb-4">Inscription</h1>
+                        </div>#}
+
+                    <div class="p-lg-5 pe-lg-0">
+                        <div class="">
+                            <h4 class="mb-4 pb-2" style="color: #1c294e">Demander un credit</h4>
+                        </div>
+                        {{ form_start(for , {'attr':{'novalidate':'novalidate'}}) }}
+                        <div class="col-md-auto">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Montant Credit</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ form_widget(for.montCredit) }}
+                                        </div>
+                                        <div style="color: red">
+                                            {{ form_errors(for.montCredit) }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Date premiere echeance</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ form_widget(for.datepe) }}
+                                        </div>
+                                        <div style="color: red">
+                                            {{ form_errors(for.datepe) }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">TDate derniere echeance</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ form_widget(for.datede) }}
+                                        </div>
+                                        <div style="color: red">
+                                            {{ form_errors(for.datede) }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Duree Credit</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ form_widget(for.dureeC) }}
+                                        </div>
+                                        <div style="color: red">
+                                            {{ form_errors(for.dureeC) }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Echeance</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ form_widget(for.echeance) }}
+                                        </div>
+                                        <div style="color: red">
+                                            {{ form_errors(for.echeance) }}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Type Credit</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ form_widget(for.typeCredit) }}
+                                        </div>
+                                        <div style="color: red">
+                                            {{ form_errors(for.typeCredit) }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Numero de compte</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            {{ form_widget(for.numerocompte) }}
+                                        </div>
+                                        <div style="color: red ">
+                                            {{ form_errors(for.numerocompte) }}
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        {{ form_end(for) }}
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Quote End -->
+
+{% endblock %}

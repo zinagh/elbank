@@ -101,6 +101,54 @@ class CarteController extends AbstractController
         return $this->redirectToRoute('afficherCarte');
 
     }
+    /**
+     * @Route("/triNum_carte", name="tri_num_carte")
+     */
+    public function TriIDCarte()
+    {
+        $carte= $this->getDoctrine()->getRepository(Carte::class)->TriParNumCarte();
+        return $this->render("carte/afficherCarte.html.twig",array('carte'=>$carte));
+    }
 
+    /**
+     * @param Carte $Carte
+     * @Route("/carteprint/{id}", name="carteprint")
+     */
+    public function ReleveCarte($id)
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+//        $pdfOptions->set('isRemoteEnabled', true);
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        $repository = $this->getDoctrine()->getRepository(Carte::class);
+        $Carte = $repository->findOneByid($id);
+
+
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('Carte/pdf.html.twig', [
+            'Carte' => $Carte ,
+
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("carte.pdf", [
+            "Attachment" => false
+        ]);
+    }
 
 }

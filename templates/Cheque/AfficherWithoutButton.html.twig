@@ -1,0 +1,79 @@
+{% extends 'base_front_connecte.html.twig' %}
+
+{% block title %}EL Bank - Cheque{% endblock %}
+{% block carousel %}
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center breadcrumbs_inner">
+                <table class="table" border="1" style="color:#22242a ;border: #a7a7a7">
+                    <h4><i class="fa fa-angle-right"></i> La liste des chéques</h4>
+                    <hr>
+                    <thead>
+                    <tr>
+                        <th>Montant</th>
+                        <th>Date  <a href="{{ path('croissantcheque') }}"><img src="{{ asset('img.png') }}" height="20" width="20"> </a>
+
+                            <a href="{{ path('decroissantcheque') }}"><img src="{{ asset('img_1.png') }}" height="20" width="20"> </a>
+                        </th>
+                        <th>Lieu</th>
+                        <th>Signature</th>
+                        <th>Destinataire</th>
+                        <th>Modifier</th>
+
+
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        {% for U in c%}
+                    <tr>
+
+                        <td>
+                            {{ U.montant }}
+                        </td>
+
+                        <td>
+                            {{ U.datecheque |date('d/m/Y')}}
+                        </td>
+                        <td>
+                            {{ U.lieu }}
+                        </td>
+                        <td>
+                            {{ U.signature }}
+                        </td>
+
+                        <td>
+                            {{ U.destinataire }}
+                        </td>
+
+
+
+                        <td>
+
+
+                            <a href="{{ path('ModifierE',{'id':U.id}) }}">
+                                <img src="{{ asset('update2.png') }}"  style="width:42px;height:42px;border:0">
+                            </a>
+
+                        </td>
+
+
+
+                    </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+{% endblock %}

@@ -131,9 +131,9 @@
 
                                 <th>Trier par :  </th>
                                 <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                       style="height: 35px; padding: 6px 15px; " href="#">Nom Utilisateur</a></th>
+                                       style="height: 35px; padding: 6px 15px; " href="{{ path('triNom') }}">Nom Utilisateur</a></th>
                                 <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                       style="height: 35px; padding: 6px 15px; " href="#">Date naissance</a></th>
+                                       style="height: 35px; padding: 6px 15px; " href="{{ path('triDateNaissance') }}">Date naissance</a></th>
                             </form>
                         </table>
                     </td>
@@ -168,6 +168,9 @@
                                     <td class="table">Email Utilisateur</td>
                                     <td class="table">Numero Telephone Utilisateur</td>
                                     <td class="table">Role Utilisateur</td>
+                                    <<td colspan="3" class="table">Gestion des accès </td>
+
+
                                 </tr>
                                 {% for k in formU %}
                                 <tr style="border:1px solid black;border-collapse:collapse; vertical-align:center; text-align:center;">
@@ -212,15 +215,21 @@
 
 
                                     <td>
-                                        <form action="#">
+                                        <form action="{{ path('bloquer',{'id':k.getId()}) }}">
                                             <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                                                     style="height: 35px; padding: 6px 15px; "> Bloquer</button>
                                         </form>
                                     </td>
                                     <td>
-                                        <form action="#">
+                                        <form action="{{ path('debloquer',{'id':k.getId()}) }}">
                                             <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                                    style="height: 35px; padding: 6px 15px; "> Déloquer</button>
+                                                    style="height: 35px; padding: 6px 15px; "> Débloquer</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{ path('supprimer_uBack',{'id':k.getId()}) }}">
+                                            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                                    style="height: 35px; padding: 6px 15px; "> Supprimer</button>
                                         </form>
                                     </td>
                                     {% endfor %}
