@@ -1,0 +1,421 @@
+{% extends 'base_front_connecte.html.twig' %}
+{% block title %}EL Bank - Mon Compte{% endblock %}
+{% block cssperso %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"
+            integrity="sha256-ErZ09KkZnzjpqcane4SCyyHsKAXMvID9/xwbl/Aq1pc=" crossorigin="anonymous"></script>
+{% endblock %}
+{% block header %}
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light p-0">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                    <small>06, Bloc I - Esprit, El Ghazela</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center py-3">
+                    <small class="far fa-clock text-primary me-2"></small>
+                    <small>Mon - Fri : 08.00 AM - 07.00 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-phone-alt text-primary me-2"></small>
+                    <small>+216 12 345 678</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-0" href=""><i class="fab fa-instagram"
+                                                                                       style="color: #032a5f;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+        <a href="{{ path('base_front_connecte') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img src="{{ asset('FrontOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="150">
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ path('base_front_connecte') }}" class="nav-item nav-link">Acceuil</a>
+                {# <a href="{{ path('categoriecartefront') }}" class="nav-item nav-link">Assurances</a> #}
+                <a href="{{ path('afficherOC_front') }}" class="nav-item nav-link">Emprunts</a>
+                <a href="{{ path('categoriecartefront') }}" class="nav-item nav-link">Cartes</a>
+                <a href="{{ path('cheque') }}" class="nav-item nav-link">Mon Chèquier</a>
+                <a href="{{ path('effectuer_transaction', {'id':app.user.id}) }}" class="nav-item nav-link">Mon
+                    Compte Bancaire</a>
+
+                {# <div class="nav-item dropdown"> #}
+                {# <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Indicateur Financier</a> #}
+                {# <div class="dropdown-menu fade-up m-0"> #}
+                {# <a href="{{ path('notfound') }}" class="dropdown-item">Cours des devises</a> #}
+                {# <a href="{{ path('notfound') }}" class="dropdown-item">Cours des Crypto-monnaies</a> #}
+                {# <a href="{{ path('notfound') }}" class="dropdown-item">Convertisseur</a> #}
+                {# <!-- <a href="404.html" class="dropdown-item">404 Page</a> --> #}
+                {# </div> #}
+                {# </div> #}
+
+                <a href="{{ path('ajouterRec') }}" class="nav-item nav-link">Reclamation</a>
+                {% if is_granted('ROLE_EMPLOYEE') %}
+                    <a href="{{ path('admin') }}" class="nav-item nav-link">Back</a>
+                {% endif %}
+
+            </div>
+
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
+                    <span class="fw-medium mb-0-600 small"> Hello ,{{ app.user.getNomU() }}</span>
+                    <img class="img-profile rounded-circle"
+                         src="{{ asset('FrontOffice/img/Bankiz/avatar.png') }}" height="50" width="50"
+                         style="border-radius: 50% ;">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in active"
+                     aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{ path('profile') }}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Profil
+                    </a>
+                    <a class="dropdown-item active" href="{{ path('mon_compte',{'id':app.user.id}) }}">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Compte Bancaire
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('logout') }}" data-toggle="modal" data-target="#logoutModal">
+                        {# <a class="dropdown-item" href="{{ path('login') }}" data-toggle="modal" #}
+                        {# data-target="#logoutModal"> #}
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Déconnexion
+                        {# </a> #}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+{% endblock %}
+
+{% block carousel %}
+
+    <div style="background-color: #032a5f;">
+        <div class="container d-flex justify-content-center">
+
+            <h2 style="height: 30px;"></h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    </svg>
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            <div>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-error d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>
+                {{ message }}
+            </div>
+        </div>
+
+    {% endfor %}
+    <div id="content" class="py-4" style="background-color: #f5f5f5">
+        <div class="container">
+            <div class="row">
+                <!-- Left Panel
+                ============================================= -->
+                <aside class="col-lg-3">
+
+                    <!-- Available Balance
+                    =============================== -->
+                    {# <div style="height: 10px"></div> #}
+                    <div class="bg-white  rounded text-center p-3 mb-4">
+                        <div class="text-17 text-light my-3"><i class="fas fa-wallet"
+                                                                style="font-size: 80px; color: #ffc650"></i></div>
+                        <h3 class="text-9 fw-400">{{ comptes.soldecompte }} DT</h3>
+                        <p class="mb-2 text-muted opacity-8">Solde Actuel</p>
+                        <hr class="mx-n3">
+                        <div class="d-flex">
+                            <a href="{{ path('effectuer_transaction', {'id':app.user.id}) }}" class="btn-link me-auto"
+                               style="border: 2px solid #ffc650; padding: 5px; background-color: #ffc650; color: white">Transaction</a>
+                            <a href="" class="btn-link ms-auto"
+                               style="border: 2px solid #032a5f; padding: 5px; background-color: #032a5f; color: white"
+                               data-bs-toggle="modal" data-bs-target="#compte-detail">Informations</a></div>
+                    </div>
+                    <!-- Available Balance End -->
+                    <div class="bg-white  rounded text-center p-3 mb-4">
+                        {% if qrCode %}
+                            <img src="{{ qrCode }}" alt="qr-code">
+                        {% endif %}
+                        <p align="center">Scannez ce QR code pour faciliter les transactions</p>
+                    </div>
+                    <div align="center">
+                        <a href="{{ path('desactiver_compte_front',{'id':comptes.id}) }} }}"
+                           class="btn btn-primary py-md-3 px-md-5 me-3 "
+                           style="background-color: #ffc650; border-color: #ffc650; margin-bottom: 20px;">
+                            Désactiver mon compte</a>
+                        <a href="{{ path('releve_compte', {'id':app.user.id} ) }}"
+                           class="btn btn-primary py-md-3 px-md-5 me-3 "
+                           style="background-color: #032a5f; border-color: #032a5f;">
+                            Relevé de compte</a>
+                    </div>
+
+                </aside>
+                <!-- Left Panel End -->
+
+                <!-- Middle Panel
+                ============================================= -->
+                <div class="col-lg-9">
+
+                    {# <!-- Profile Completeness #}
+                    {# =============================== --> #}
+                    {# <div class="bg-white shadow-sm rounded p-4 mb-4"> #}
+                    {# <h3 class="text-5 fw-400 d-flex align-items-center mb-4">Profile Completeness<span #}
+                    {# class="border text-success rounded-pill fw-500 text-2 px-3 py-1 ms-2">50%</span> #}
+                    {# </h3> #}
+                    {# <hr class="mb-4 mx-n4"> #}
+                    {# <div class="row gy-4 profile-completeness"> #}
+                    {# <div class="col-sm-6 col-md-3"> #}
+                    {# <div class="border rounded text-center px-3 py-4"><span #}
+                    {# class="d-block text-10 text-light mt-2 mb-3"><i #}
+                    {# class="fas fa-mobile-alt"></i></span> <span #}
+                    {# class="text-5 d-block text-success mt-4 mb-3"><i #}
+                    {# class="fas fa-check-circle"></i></span> #}
+                    {# <p class="mb-0">Mobile Added</p> #}
+                    {# </div> #}
+                    {# </div> #}
+                    {# <div class="col-sm-6 col-md-3"> #}
+                    {# <div class="border rounded text-center px-3 py-4"><span #}
+                    {# class="d-block text-10 text-light mt-2 mb-3"><i class="fas fa-envelope"></i></span> #}
+                    {# <span class="text-5 d-block text-success mt-4 mb-3"><i #}
+                    {# class="fas fa-check-circle"></i></span> #}
+                    {# <p class="mb-0">Email Added</p> #}
+                    {# </div> #}
+                    {# </div> #}
+                    {# <div class="col-sm-6 col-md-3"> #}
+                    {# <div class="position-relative border rounded text-center px-3 py-4"><span #}
+                    {# class="d-block text-10 text-light mt-2 mb-3"><i #}
+                    {# class="fas fa-credit-card"></i></span> <span #}
+                    {# class="text-5 d-block text-light mt-4 mb-3"><i #}
+                    {# class="far fa-circle "></i></span> #}
+                    {# <p class="mb-0"><a class="btn-link stretched-link" href="">Add Card</a></p> #}
+                    {# </div> #}
+                    {# </div> #}
+                    {# <div class="col-sm-6 col-md-3"> #}
+                    {# <div class="position-relative border rounded text-center px-3 py-4"><span #}
+                    {# class="d-block text-10 text-light mt-2 mb-3"><i #}
+                    {# class="fas fa-university"></i></span> <span #}
+                    {# class="text-5 d-block text-light mt-4 mb-3"><i #}
+                    {# class="far fa-circle "></i></span> #}
+                    {# <p class="mb-0"><a class="btn-link stretched-link" href="">Add Bank Account</a></p> #}
+                    {# </div> #}
+                    {# </div> #}
+                    {# </div> #}
+                    {# </div> #}
+                    {# <!-- Profile Completeness End --> #}
+                    {% include 'transaction/FrontOffice/afficherMesTransactions.html.twig' %}
+
+
+                    <!-- Compte Item Details Modal
+                    =========================================== -->
+                    {% set taux = comptes.tauxinteret * 100 %}
+                    <div id="compte-detail" class="modal fade" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered compte-details" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h5 class="text-5 fw-400 m-3">Détails sur votre compte
+                                        <button type="button" class="btn-close text-2 float-end"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </h5>
+                                    <hr>
+                                    <div class="px-3">
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2" style="font-weight: bold">RIB du Compte <span
+                                                        class="float-end text-3"
+                                                        style="font-weight: normal">{{ comptes.ribcompte }}</span>
+                                            </li>
+                                            <li class="mb-2" style="font-weight: bold">Numéro du Compte <span
+                                                        class="float-end text-3"
+                                                        style="font-weight: normal">{{ comptes.numcompte }}</span>
+                                            </li>
+                                            <li class="mb-2" style="font-weight: bold">Solde du Compte <span
+                                                        class="float-end text-3"
+                                                        style="font-weight: normal">{{ comptes.soldecompte }}</span>
+                                            </li>
+                                            <li class="mb-2" style="font-weight: bold">Seuil du Compte <span
+                                                        class="float-end text-3"
+                                                        style="font-weight: normal">{{ comptes.seuilcompte }}</span>
+                                            </li>
+                                            <li class="mb-2" style="font-weight: bold">Type du Compte <span
+                                                        class="float-end text-3"
+                                                        style="font-weight: normal">{{ comptes.typecompte }}</span>
+                                            </li>
+
+                                            <li class="mb-2" style="font-weight: bold">Taux d'intérêt <span
+                                                        class="float-end text-3"
+                                                        style="font-weight: normal">{{ taux }} % </span></li>
+                                            <li class="mb-2" style="font-weight: bold">Date de Création<span
+                                                        class="float-end text-3"
+                                                        style="font-weight: normal">{{ comptes.datecreation |date('d-m-Y') }}</span>
+                                            </li>
+                                            {% if comptes.etatcompte == 0 %}
+                                            <li class="mb-2" style="font-weight: bold">Etat du Compte <span
+                                                        class="float-end text-3">En cours d'activation<span
+                                                            class="text-success text-3 ms-1"><i
+                                                                class="fas fa-ellipsis-h"></i></span></span>
+
+                                                {% elseif comptes.etatcompte == 1 %}
+                                            <li class="mb-2" style="font-weight: bold">Etat du Compte <span
+                                                        class="float-end text-3">Activé<span
+                                                            class="text-success text-3 ms-1"><i
+                                                                class="fas fa-check-circle"></i></span></span>
+
+                                                {% elseif comptes.etatcompte == 2 %}
+                                            <li class="mb-2" style="font-weight: bold">Etat du Compte <span
+                                                        class="float-end text-3">Désactivé<span
+                                                            class="text-success text-3 ms-1"><i
+                                                                class="fas fa-times-circle"></i></span></span>
+
+
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                        <hr class="mb-4 mt-2">
+
+                                    </div>
+                                    <div class="container">
+                                        <div class="copyright">
+                                            <div class="row" align="center">
+                                                <div class="px-3">
+                                                    &copy; EL Bank, All Rights Reserved.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white shadow-sm rounded py-4 mb-4">
+                    <h3 class="text-5 fw-400 d-flex align-items-center px-4 mb-4">Statistiques de vos dépenses </h3>
+                    <canvas id="transactions" width="500" height="200"></canvas>
+
+                </div>
+
+                <!-- Compte Item Details Modal End -->
+
+                <!-- View all Link
+                =============================== -->
+                {# <div class="text-center mt-4"><a href="transactions.html" class="btn-link text-3">View all<i #}
+                {# class="fas fa-chevron-right text-2 ms-2"></i></a></div> #}
+                <!-- View all Link End -->
+
+            </div>
+            <!-- Recent Activity End -->
+        </div>
+        <!-- Middle Panel End -->
+    </div>
+    </div>
+    </div>
+    <!-- Content end -->
+
+    </div>
+{% endblock %}
+{% block jsperso %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labels = [
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            // 'Août',
+            // 'Septembre',
+            // 'Octobre',
+            // 'Novembre',
+            // 'Décembre',
+        ];
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Evolution de vos dépenses mensuelles',
+                    backgroundColor: '#ffc650',
+                    borderColor: '#ffc650',
+                    data: [{{ comptes2|raw }}, {{ comptes2|raw }}, {{ comptes2|raw }}, {{ comptes2|raw }},{{ comptes2|raw }}, {{ comptes2|raw }}, {{ comptes2|raw }}],
+                    {# data: [{{ emetteur|raw }}, {{ recepteur|raw }}] #}
+                },
+                {
+                    label: 'Seuil de votre compte',
+                    backgroundColor: '#032a5f',
+                    borderColor: '#032a5f',
+                    data: [
+                        {% for montant in montantTransactions %}
+                        {{ montant|raw }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    ],
+                }
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+
+        const myChart = new Chart(
+            document.getElementById('transactions'),
+            config
+        );
+    </script>
+{% endblock %}

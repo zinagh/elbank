@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}EL Bank{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    {% block css %}
+        <!-- Favicon -->
+        <link href="{{ asset('FrontOffice/img/Bankiz/logo.png') }}" rel="icon">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+              rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="{{ asset('FrontOffice/lib/animate/animate.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('FrontOffice/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('FrontOffice/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{{ asset('FrontOffice/css/bootstrap.min.css') }}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{{ asset('FrontOffice/css/style.css') }}" rel="stylesheet">
+    {% endblock %}
+    {% block script %}{% endblock %}
+    {% block styleperso %}
+        <style>
+            /*.table {*/
+            /*    border: 1px solid black;*/
+            /*    border-collapse: collapse;*/
+            /*    color: black;*/
+            /*    font-weight: bold;*/
+            /*    text-align: center;*/
+            /*    width: 150px;*/
+            /*}*/
+
+            .input_back {
+                height: 35px;
+                width: 235px;
+            }
+
+            h5 {
+                padding: 10px 15px 10px 15px;
+            }
+        </style>
+    {% endblock %}
+</head>
+
+<body>
+<!-- Spinner Start -->
+{% block header %}
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light p-0">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                    <small>06, Bloc M - Esprit, El Ghazela</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center py-3">
+                    <small class="far fa-clock text-primary me-2"></small>
+                    <small>Mon - Fri : 08.00 AM - 07.00 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-phone-alt text-primary me-2"></small>
+                    <small>+216 24 858 204</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-0" href=""><i class="fab fa-instagram"
+                                                                                       style="color: #032a5f;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+        <a href="{{ path('accueil') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img src="{{ asset('FrontOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="130" height="70">
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ path('accueil') }}" class="nav-item nav-link active">Acceuil</a>
+                <a href="{{ path('notfound') }}" class="nav-item nav-link">Assurances</a>
+                <a href="{{ path('notfound') }}" class="nav-item nav-link">Emprunts</a>
+                <a href="{{ path('notfound') }}" class="nav-item nav-link" >Indicateur Financier</a>
+                <a href="{{ path('apropos') }}" class="nav-item nav-link">A propos</a>
+                <a href="{{ path('contact') }}" class="nav-item nav-link">Contact</a>
+            </div>
+            {% if not app.user %}
+                <a href="{{ path('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+                   style="background-color: #ffc650; border-color: #ffc650;">Connexion<i
+                            class="fa fa-arrow-right ms-3"></i></a>
+            {% else %}
+                <a href="{{ path('logout') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block"
+                   style="background-color: #ffc650; border-color: #ffc650;">Deconnexion</a>
+            {% endif %}
+        </div>
+
+    </nav>
+    <!-- Navbar End -->
+{% endblock %}
+
+{% block carousel %}
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 pb-5">
+        <div class="owl-carousel header-carousel position-relative">
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="{{ asset('FrontOffice/img/carousel-1.jpg') }}" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+                     style="background: rgba(53, 53, 53, .7);">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-8 text-center">
+                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Welcome To ELBANK</h5>
+                                <h1 class="display-3 text-white animated slideInDown mb-4">Experience Banking Beyond Transactions</h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Numériser les services bancaires grâce à notre solution qui permettra à nos clients, employés et administrateurs de gérer tous les processus existants via une seule plateforme.</p>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
+                                   style="background-color: #ffc650; border-color: #ffc650;">Read More</a>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 animated slideInRight"
+                                   style="background-color: #032a5f; border-color: #032a5f;">Free Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="{{ asset('FrontOffice/img/Bank-2.jpg') }}" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+                     style="background: rgba(53, 53, 53, .7);">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-8 text-center">
+                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Welcome To ELBANK</h5>
+                                <h1 class="display-3 text-white animated slideInDown mb-4">Experience Banking Beyond Transactions</h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Numériser les services bancaires grâce à notre solution qui permettra à nos clients, employés et administrateurs de gérer tous les processus existants via une seule plateforme.</p>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
+                                   style="background-color: #ffc650; border-color: #ffc650;">Read More</a>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 animated slideInRight"
+                                   style="background-color: #032a5f; border-color: #032a5f;">Free Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="{{ asset('FrontOffice/img/Bank-3.jpg') }}" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+                     style="background: rgba(53, 53, 53, .7);">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-8 text-center">
+                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Welcome To ELBANK</h5>
+                                <h1 class="display-3 text-white animated slideInDown mb-4">Experience Banking Beyond Transactions</h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Numériser les services bancaires grâce à notre solution qui permettra à nos clients, employés et administrateurs de gérer tous les processus existants via une seule plateforme.</p>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
+                                   style="background-color: #ffc650; border-color: #ffc650;">Read More</a>
+                                <a href="" class="btn btn-primary py-md-3 px-md-5 animated slideInRight"
+                                   style="background-color: #032a5f; border-color: #032a5f;">Free Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End -->
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+<!-- Footer Start -->
+{% block footer %}
+    <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Address</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>06, Bloc M - Esprit, El Ghazela</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+216 24 858 204</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>Service.bancaire@elbank.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Services</h4>
+                    <a class="btn btn-link" href="">La Gestion des Comptes et des cartes banquaires</a>
+                    <a class="btn btn-link" href="">Le Paiement des Transactions</a>
+                    <a class="btn btn-link" href="">Demande de Chéquier et Gestion des Chéques</a>
+                    <a class="btn btn-link" href="">Demande et Simulation Crédit</a>
+                    <a class="btn btn-link" href="">Réclamation</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Quick Links</h4>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Our Services</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">Support</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Newsletter</h4>
+                    <p>Le service est temporairement hors-ligne.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
+                                style="background-color: #ffc650; border-color: #ffc650;">SignUp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">EL Bank</a>, All Right Reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">Builders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-0 back-to-top"
+   style="background-color: #ffc650; border-color: #ffc650;"><i class="bi bi-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+{% block js %}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('FrontOffice/lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('FrontOffice/lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('FrontOffice/lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('FrontOffice/lib/counterup/counterup.min.js') }}"></script>
+    <script src="{{ asset('FrontOffice/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('FrontOffice/lib/isotope/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('FrontOffice/lib/lightbox/js/lightbox.min.js') }}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{ asset('FrontOffice/js/main.js') }}"></script>
+{% endblock %}
+</body>
+
+</html>

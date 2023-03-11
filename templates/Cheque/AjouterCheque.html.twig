@@ -1,0 +1,101 @@
+{% extends 'base_front_connecte.html.twig' %}
+
+{% block title %}EL Bank - Cheque{% endblock %}
+
+{% block carousel %}
+    <div class="container-fluid bg-light overflow-hidden px-lg-0" style="margin: 6rem 0;">
+        <div class="container contact px-lg-0">
+            <div class="row g-0 mx-lg-0">
+                <div class="col-lg-6 contact-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="p-lg-5 ps-lg-0">
+                        <div >
+                            <h1 class="display-5 mb-4">Cheque </h1>
+                        </div>
+                        {{form_start(form,{'attr':{'novalidate' : 'novalidate'}})}}
+                        <div class="row g-3">
+
+{#                            <div class="col-12">#}
+{#                                <div class="form-floating">#}
+{#                                    {{ form_widget(form.proprietaire , {'attr': {'class': 'form-control' } }) }}#}
+{#                                    {{ form_label(form.proprietaire, 'Proprietaire') }}#}
+{#                                </div>#}
+{#                            </div>#}
+                            <div class="col-md-9">
+                                <div class="form-floating">
+                                    {{ form_widget(form.montant, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_label(form.montant, 'Montant') }}
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    {{ form_widget(form.signature, {'attr': {'class': 'form-control'} }) }}
+                                    {{ form_label(form.signature, 'Code °') }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    {{ form_widget(form.lieu, {'attr': {'class': 'form-control' } }) }}
+                                    {{ form_label(form.lieu, 'Lieu') }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    {{ form_widget(form.destinataire, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_label(form.destinataire, 'Destinataire') }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    {{ form_widget(form.idchequiers, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_label(form.idchequiers, 'Chequier') }}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit" style="background-color: #ffc650; border-color: #ffc650;">Confirmer</button>
+                            </div>
+
+
+                        </div>
+
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyCuP0QbhWgKwx5mwDm1jV2pZXYU4FtGhQ4"></script>
+    <script>
+        function initializeAutocomplete(id) {
+            var element = document.getElementById(id);
+            if (element) {
+                var autocomplete = new google.maps.places.Autocomplete(element, { types: ['geocode'] });
+                google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
+            }
+        }
+
+        function onPlaceChanged() {
+            var place = this;
+
+            // console.log(place);  // Uncomment this line to view the full object returned by Google API.
+
+            for (var i in place.address_components) {
+                var component = place.address_components[i];
+                for (var j in component.types) {  // Some types are ["country", "political"]
+                    var type_element = document.getElementById(component.types[j]);
+                    if (type_element) {
+                        type_element.value = component.long_name;
+                    }
+                }
+            }
+        }
+
+        google.maps.event.addDomListener(window, 'load', function() {
+            initializeAutocomplete('user_input_autocomplete_address');
+        });</script>
+
+{% endblock %}

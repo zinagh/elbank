@@ -1,0 +1,86 @@
+{% extends 'base_back.html.twig' %}
+{% block body %}
+    <h1 class="h3 mb-4 text-gray-800">crédits</h1>
+    <h2>Recherche des crédits par type </h2>
+    <form method="POST">
+        <input type="text" name="typeCredit">
+        <input type="submit" value="recherche">
+    </form>
+
+
+    <form method="post" action="{{ path('ajoutCredit') }}" >
+        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="height: 45px; padding: 10px 15px; ">Ajouter un crédit</button><br>
+        <br></form>
+
+    <div class="card-body">
+    <table>
+    <td style="  vertical-align:top ; ">
+        <table style="margin-right: 20px ; ">
+            <form action="" method="POST">
+                {# <tr> #}
+                {# <th> #}
+                {# <select value="sortselect" name="sortselect" class="input_back" #}
+                {# style="width: 125px;"> #}
+                {# <option value="tri_nom">Nom Emetteur</option> #}
+                {# <option value="tri_date">Date transaction</option> #}
+                {# <option value="tri_etat">Etat transaction</option> #}
+                {# </select> #}
+                {# <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" #}
+                {# style="height: 35px; padding: 6px 15px; " href="{{ path('etatTrans') }}">Trier</a></th> #}
+                {# </th> #}
+                {# </tr> #}
+                <th>Trier par :</th>
+                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                       style="height: 35px; padding: 6px 15px; " href="{{ path('TrimontCredit') }}">TrimontCredit</a></th>
+                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                       style="height: 35px; padding: 6px 15px; " href="{{ path('TriDatepe') }}">TriDatepe</a></th>
+                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                       style="height: 35px; padding: 6px 15px; " href="{{ path('TriDatede') }}">TriDatede</a></th>
+
+            </form>
+        </table>
+    </td>
+
+    <table style="margin-right: 20px ; ">
+
+    </table>
+
+
+    <table border="1">
+        <tr>
+            <th>Num crédit</th>
+            <th>Montant crédit</th>
+            <th>Date première échéance</th>
+            <th>Date dernière échéance</th>
+            <th>Duréé crédit</th>
+            <th>Echéance</th>
+            <th>Taux d'interet</th>
+            <th>Décision</th>
+            <th>Etat crédit</th>
+            <th>Type crédit</th>
+            <th>numCompte</th>
+
+            <th>Supprimer</th>
+            <th>Modifier</th>
+
+        </tr>
+        <tr {% for c in Credit %}>
+            <td>{{ c.id }}</td>
+            <td>{{ c.montCredit }}</td>
+            <td>{{ c.datepe |date('d-m-Y')}}</td>
+            <td>{{ c.datede |date('d-m-Y')}}</td>
+            <td>{{ c.dureeC }}</td>
+            <td>{{ c.echeance |date('d-m-Y')}}</td>
+            <td>{{ c.tauxInteret }}</td>
+            <td>{{ c.decision }}</td>
+            <td>{{ c.etatCredit }}</td>
+            <td>{{ c.typeCredit }}</td>
+            <td>{{ c.numerocompte.numcompte }}</td>
+
+
+
+            <td><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ path("suppCredit",{'id':c.id}) }}">Supprimer</a></td>
+            <td><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ path("modifCredit",{'id':c.id}) }}">Modifier</a></td>
+        </tr {% endfor %}>
+    </table>
+{% endblock %}

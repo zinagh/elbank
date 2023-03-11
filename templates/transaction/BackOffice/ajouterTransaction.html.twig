@@ -1,0 +1,60 @@
+{% extends 'transaction/BackOffice/index.html.twig' %}
+
+{% block ajouter_transaction %}
+    <table>
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        <tr>
+            <th class="m-0 font-weight-bold text-dark">{{ form_label(form.RIB_emetteur, "RIB Emetteur") }}
+            </th>
+            <th>{{ form_widget(form.RIB_emetteur) }}</th>
+            {#            <td style="color: red;"> {{ form_errors(form.RIB_emetteur) }}</td>#}
+        </tr>
+        <tr>
+            {#            <th class="m-0 font-weight-bold text-dark">{{ form_label(form.fullname_emetteur, "Nom Emetteur") }}</th>#}
+            {#            <th>{{ form_widget(form.fullname_emetteur) }}</th>#}
+            {#            <td style="color: red;"> {{ form_errors(form.fullname_emetteur) }}</td>#}
+        </tr>
+        <tr>
+            <th class="m-0 font-weight-bold text-dark">{{ form_label(form.RIB_recepteur, "RIB Récepteur") }}</th>
+            <th>{{ form_widget(form.RIB_recepteur) }}</th>
+            {#            <td style="color: red;"> {{ form_errors(form.RIB_recepteur)}}</td>#}
+        </tr>
+        <tr>
+            <th class="m-0 font-weight-bold text-dark">{{ form_label(form.fullname_recepteur, "Nom récepteur") }}</th>
+            <th>{{ form_widget(form.fullname_recepteur) }}</th>
+            {#            <td style="color: red;"> {{ form_errors(form.fullname_recepteur) }}</td>#}
+        </tr>
+        <tr>
+            <th class="m-0 font-weight-bold text-dark">{{ form_label(form.montant_transaction, "Montant Transaction") }}</th>
+            <th>{{ form_widget(form.montant_transaction) }}</th>
+            {#            <td style="color: red;"> {{ form_errors(form.montant_transaction) }}</td>#}
+        </tr>
+        <tr>
+            <th class="m-0 font-weight-bold text-dark">{{ form_label(form.description_transaction, "Description Transaction") }}</th>
+            <th>{{ form_widget(form.description_transaction) }}</th>
+            {#            <td style="color: red;"> {{ form_errors(form.description_transaction) }}</td>#}
+        </tr>
+        <tr>
+            <th class="m-0 font-weight-bold text-dark">{{ form_label(form.type_transaction, "Type Transaction") }}</th>
+            <th>{{ form_widget(form.type_transaction) }}</th>
+            {#            <td style="color: red;"> {{ form_errors(form.type_transaction) }}</td>#}
+        </tr>
+        {#    <tr>#}
+        {#        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.etat_transaction, "Etat Transaction") }}</th>#}
+        {#        <th>{{ form_widget(form.etat_transaction) }}</th>#}
+        {#        <td style="color: red;"> {{ form_errors(form.etat_transaction) }}</td>#}
+        {#    </tr>#}
+
+    </table>
+    <br>
+    {{ form_end(form) }}
+{% endblock %}
+{% block jsperso %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(function (){
+            $('.select-compte').select2();
+        })
+    </script>
+{% endblock %}

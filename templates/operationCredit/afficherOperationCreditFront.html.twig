@@ -1,0 +1,165 @@
+{% extends 'base_front_connecte.html.twig' %}
+{% block carousel %}
+
+    <div class="section-title text-center">
+        {%  for type, messages in app.flashes %}
+            {%  for message in messages %}
+                <div  class="alert alert-{{ type }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor%}
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block body %}
+    <br>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <form method="post" action="{{ path('ajoutOperationCreditFront') }}" >
+            <button  class="btn btn-primary btn-lg btn-block" style="
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+">Ajouter un Paiement de Credit</button>
+        </form><br>
+        <form method="post" action="{{ path('ajoutCreditFront') }}" >
+            <button class="btn btn-primary btn-lg btn-block" style="
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+">demande credit</button>
+        </form><br>
+        <form method="post" action="{{ path('tst') }}" >
+            <button class="btn btn-secondary btn-lg btn-block" style="
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+">Simuler credit</button>     </form>
+        <form method="post" action="{{ path('AfficheCreditFront') }}" >
+            <button class="btn btn-secondary btn-lg btn-block" style="
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+">Afficher Credit</button>     </form>
+    </div>
+    <div>
+        <h1>Liste des opérations crédits</h1>
+
+    </div>
+    <br>
+    <table border="1" class="table table-striped">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Crédit</th>
+            <th scope="col">date_op</th>
+            <th scope="col">mont_payer</th>
+            <th scope="col">echeance</th>
+            <th scope="col">taux_interet</th>
+            <th scope="col">solvabilite</th>
+            <th scope="col">type_operation</th>
+
+        </tr>
+        <tr {% for c in operationCredit %}>
+            <td>{{ c.id }}</td>
+            <td>{{ c.credit }}</td>
+            <td>{{ c.dateop |date('d-m-Y') }}</td>
+            <td>{{ c.montpayer }}</td>
+            <td>{{ c.echeance |date('d-m-Y') }}</td>
+            <td>{{ c.tauxinteret }}</td>
+            <td>{{ c.solvabilite }}</td>
+            <td>{{ c.typeoperation }}</td>
+            {# <td><a href="https://web-chat.global.assistant.watson.cloud.ibm.com/preview.html?region=eu-de&integrationID=391b1234-9990-430d-b6e3-db9e6576ea3e&serviceInstanceID=d130be5f-214b-4fd3-a600-9d4ad1ae78d1&fbclid=IwAR31LW_UYtdX1MpJNj15JXaYuuoq-R7ZqJh1zO6fD8c6-daqsqmNA8ElpmU">Supprimer</a></td>
+                   <td><a href="{{ path("modifOperationCredit",{'id':c.id}) }}">Modifier</a></td> #}
+
+        </tr {% endfor %}>
+    </table>
+
+    <div class="bg-white shadow-sm rounded py-4 mb-4">
+        <h3 class="text-5 fw-400 d-flex align-items-center px-4 mb-4">Statistiques de vos Opérations de paiement </h3>
+        <canvas id="Operationscharti" width="900" height="500" style=" display: block; margin-right: auto;  margin-left: 0;"></canvas>
+
+    </div>
+{% endblock %}
+{% block jsperso %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+
+        const labels = [
+            {% for NumOperation in NumOperations%}
+            {{NumOperation|raw }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        ];
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Montant Restant de vos crédits',
+                    backgroundColor: '#00FF00',
+                    borderColor: '#00FF00',
+                    data:
+                    [
+                    {% for variation in variations %}
+                    {{variation|raw }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            ],
+
+                },
+                {
+                    label: 'Evolution de vos opérations',
+                    backgroundColor: '#000000',
+                    borderColor: '#000000',
+                    data: [
+                        {% for montantOperation in montantOperations%}
+                        {{montantOperation|raw }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    ],
+                }
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+
+        const myChart = new Chart(
+            document.getElementById('Operationscharti'),
+            config
+        );
+    </script>
+{% endblock %}

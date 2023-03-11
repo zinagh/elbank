@@ -1,0 +1,76 @@
+{% extends 'base_back.html.twig' %}
+{% block title %}EL Bank - Categories {% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+
+<div class="form-row align-items-end" >
+ <div class="col">
+   {{ form_row(form.type) }}
+ </div>
+
+  <div class="col">
+   <div class="form-group">
+      <button type="submit" class="btn btn-success">Rechercher</button>
+    </div>
+ </div>
+</div>
+ {{ form_end(form) }}
+<h1 class="h3 mb-4 text-gray-800">-Liste des Categories-</h1>
+    <div class="card shadow mb-4">
+    
+    <div class="card-body">
+        <table border="2">
+
+    <table style="margin-right: 20px ; ">
+    </table>
+            </tr>
+            <hr>
+            <td>
+                <div style="width: 100%; overflow: auto">
+                    <table style="border:1px solid black;border-collapse:collapse; vertical-align:center; class="" ">
+                        <tr class="table" style="border:1px solid black;border-collapse:collapse;">
+                            <td>id t</td>
+                            <td >Nom de la Categorie</td>
+                            <td >description</td>
+                            <td >prix</td>
+                            <td>montantmax</td>
+                            <td>Action 1</td>
+                            <td>Action 2</td>
+                        </tr>
+
+    {% for c in categorieCarte %}
+            <tr style="border:1px solid black;border-collapse:collapse; vertical-align:center; text-align:center;">
+                <td>{{ c.id }}</td>
+                <td>{{ c.type }}</td>
+                <td>{{ c.description }}</td>
+                <td>{{ c.prix }}</td>
+                <td>{{ c.montantmax}}</td>
+        
+                <td><a href="{{ path("supprimerCategorieCarte",{'id':c.id}) }}">Supprimer</a></td>
+
+<td><a href="{{ path("modifierCategorieCarte",{'id':c.id}) }}">Modifier</a></td>
+            </tr>
+    {% endfor %}
+                        </tr>
+                    </table>
+                    <tr>
+                        <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                               style="height: 45px; padding: 10px 15px; " href="{{ path('ajouterCategorieCarte') }}">Ajouter une categorie
+                               
+                            </a></th>
+                    </tr>
+                     <tr>
+                        <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                               style="height: 45px; padding: 10px 15px; " href="{{ path('app_calendar_index') }}">Ajouter un evenement
+                               
+                            </a></th>
+                    </tr>
+                </div>
+            </td>
+        </table>
+    </div>
+
+    </div>
+    </div>
+{% endblock %}

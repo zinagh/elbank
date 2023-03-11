@@ -1,0 +1,153 @@
+{# <h4 class=" mb-3" style="font-weight: bold; font-size: 20px;"> 5 Dernières #}
+{# transactions</h4> #}
+{# <table class="table table-striped"> #}
+{# <thead> #}
+{# <tr> #}
+{# <th scope="col">Emetteur</th> #}
+{# <th scope="col">Récepteur</th> #}
+{# <th scope="col">Montant</th> #}
+{# <th scope="col">Type Transaction</th> #}
+{# <th scope="col">Description </th> #}
+{# <th scope="col">Date Transaction</th> #}
+{# <th scope="col">Etat transaction</th> #}
+{# </tr> #}
+{# </thead> #}
+{# <tbody> #}
+{# {% for trans in transactions %} #}
+{# <tr> #}
+{# <td>{{ trans.fullnameemetteur.fullnameclient.nomu }}{{ ' ' }}{{ trans.fullnameemetteur.fullnameclient.prenomu }}</td> #}
+{# <td>{{ trans.fullnamerecepteur }}</td> #}
+{# <td>{{ trans.montanttransaction }}</td> #}
+{# <td>{{ trans.typetransaction }}</td> #}
+{# <td>{{ trans.descriptiontransaction }}</td> #}
+{# <td>{{ trans.datetransaction |date('d-m-Y') }}</td> #}
+{# {% if trans.etattransaction == 0 %} #}
+{# <td style="color: orange">En cours</td> #}
+{# {% elseif trans.etattransaction == 1 %} #}
+{# <td style="color: green">Aboutie</td> #}
+{# {% elseif trans.etattransaction == 2 %} #}
+{# <td style="color: red;">Annulée</td> #}
+{# {% endif %} #}
+
+{# {% endfor %} #}
+{# </tr> #}
+{# </tbody> #}
+{# </table> #}
+
+<!-- Recent Activity
+                    =============================== -->
+<div class="bg-white shadow-sm rounded py-4 mb-4">
+    <h3 class="text-5 fw-400 d-flex align-items-center px-4 mb-4">Activité récente</h3>
+
+    <!-- Title
+    =============================== -->
+    <div class="transaction-title py-2 px-4">
+        <div class="row fw-00" style="font-weight: bold">
+            <div class="col-2 col-sm-1 text-center"><span class="">Date</span></div>
+            <div class="col col-sm-7">Description</div>
+            <div class="col-auto col-sm-2 d-none d-sm-block text-center">Etat</div>
+            <div class="col-3 col-sm-2 text-end">Montant</div>
+        </div>
+    </div>
+    <!-- Title End -->
+
+    <!-- Transaction List
+    =============================== -->
+
+    <div class="transaction-list">
+        {% for trans in transactions %}
+
+            <div class="transaction-item px-4 py-3" data-bs-toggle="modal"
+                 data-bs-target="#transaction-detail">
+
+                <div class="row align-items-center flex-row">
+                    <div class="col-2 col-sm-1 text-center"><span
+                                class="d-block text-4 fw-300">{{ trans.datetransaction |date('d-m') }}</span> <span
+                                class="d-block text-1 fw-300 text-uppercase">{{ trans.datetransaction |date('Y') }}</span>
+                    </div>
+                    <div class="col col-sm-7"><span class="d-block text-4">{{ trans.fullnamerecepteur }}</span> <span
+                                class="text-muted">{{ trans.descriptiontransaction }}</span></div>
+                    {% if trans.etattransaction == 0 %}
+                        <div class="col-auto col-sm-2 d-none d-sm-block text-center text-3"><span
+                                    class="text-warning" data-bs-toggle="tooltip" title="En cours"><i
+                                        class="fas fa-ellipsis-h"></i></span></div>
+
+                    {% elseif trans.etattransaction == 1 %}
+                        <div class="col-auto col-sm-2 d-none d-sm-block text-center text-3"><span
+                                    class="text-success" data-bs-toggle="tooltip" title="Aboutie"><i
+                                        class="fas fa-check-circle"></i></span></div>
+
+                    {% elseif trans.etattransaction == 2 %}
+                        <div class="col-auto col-sm-2 d-none d-sm-block text-center text-3"><span
+                                    class="text-danger" data-bs-toggle="tooltip" title="Annulée"><i
+                                        class="fas fa-times-circle"></i></span></div>
+
+                    {% endif %}
+                    <div class="col-3 col-sm-2 text-end text-4"><span
+                                class="text-nowrap">{{ trans.montanttransaction }}</span>
+                        <span class="text-2 text-uppercase">DT </span></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Transaction List End -->
+
+    <!-- Transaction Item Details Modal
+    =========================================== -->
+    <div id="transaction-detail" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered transaction-details" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row g-0">
+                        <div class="col-sm-5 d-flex justify-content-center bg-primary rounded-start py-4">
+                            <div class="my-auto text-center">
+                                <div class="text-17 text-white my-3"><i class="fas fa-building"></i>
+                                </div>
+                                <h3 class="text-4 text-white fw-400 my-3">Envato Pty Ltd</h3>
+                                <div class="text-8 fw-500 text-white my-4">$557.20</div>
+                                <p class="text-white">15 March 2021</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <h5 class="text-5 fw-400 m-3">Transaction Details
+                                <button type="button" class="btn-close text-2 float-end"
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                            </h5>
+                            <hr>
+                            <div class="px-3">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">Payment Amount <span class="float-end text-3">$562.00</span>
+                                    </li>
+                                    <li class="mb-2">Fee <span
+                                                class="float-end text-3">-$4.80</span></li>
+                                </ul>
+                                <hr class="mb-2">
+                                <p class="d-flex align-items-center fw-500 mb-0">Total Amount <span
+                                            class="text-3 ms-auto">$557.20</span></p>
+                                <hr class="mb-4 mt-2">
+                                <ul class="list-unstyled">
+                                    <li class="fw-500">Paid By:</li>
+                                    <li class="text-muted">Envato Pty Ltd</li>
+                                </ul>
+                                <ul class="list-unstyled">
+                                    <li class="fw-500">Transaction ID:</li>
+                                    <li class="text-muted">26566689645685976589</li>
+                                </ul>
+                                <ul class="list-unstyled">
+                                    <li class="fw-500">Description:</li>
+                                    <li class="text-muted">Envato March 2021 Member Payment</li>
+                                </ul>
+                                <ul class="list-unstyled">
+                                    <li class="fw-500">Status:</li>
+                                    <li class="text-muted">Completed<span
+                                                class="text-success text-3 ms-1"><i
+                                                    class="fas fa-check-circle"></i></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Transaction Item Details Modal End -->

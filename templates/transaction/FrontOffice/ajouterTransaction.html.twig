@@ -1,0 +1,192 @@
+{% extends 'base_front_connecte.html.twig' %}
+{% block header %}
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light p-0">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                    <small>06, Bloc M - Esprit, El Ghazela</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center py-3">
+                    <small class="far fa-clock text-primary me-2"></small>
+                    <small>Mon - Fri : 08.00 AM - 07.00 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-phone-alt text-primary me-2"></small>
+                    <small>+216 12 345 678</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-0" href=""><i class="fab fa-instagram"
+                                                                                       style="color: #032a5f;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+        <a href="{{ path('base_front_connecte') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img src="{{ asset('FrontOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="150">
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ path('base_front_connecte') }}" class="nav-item nav-link">Acceuil</a>
+                {#                <a href="{{ path('categoriecartefront') }}" class="nav-item nav-link">Assurances</a>#}
+                <a href="{{ path('afficherOC_front') }}" class="nav-item nav-link">Emprunts</a>
+                <a href="{{ path('categoriecartefront') }}" class="nav-item nav-link">Cartes</a>
+                <a href="{{ path('cheque') }}" class="nav-item nav-link">Mon Chèquier</a>
+                <a href="{{ path('effectuer_transaction', {'id':app.user.id}) }}" class="nav-item nav-link">Mon
+                    Compte Bancaire</a>
+
+                {#                <div class="nav-item dropdown">#}
+                {#                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Indicateur Financier</a>#}
+                {#                    <div class="dropdown-menu fade-up m-0">#}
+                {#                        <a href="{{ path('notfound') }}" class="dropdown-item">Cours des devises</a>#}
+                {#                        <a href="{{ path('notfound') }}" class="dropdown-item">Cours des Crypto-monnaies</a>#}
+                {#                        <a href="{{ path('notfound') }}" class="dropdown-item">Convertisseur</a>#}
+                {#                        <!-- <a href="404.html" class="dropdown-item">404 Page</a> -->#}
+                {#                    </div>#}
+                {#                </div>#}
+
+                <a href="{{ path('ajouterRec') }}" class="nav-item nav-link">Reclamation</a>
+                {% if is_granted('ROLE_EMPLOYEE') %}
+                    <a href="{{ path('admin') }}" class="nav-item nav-link">Back</a>
+                {% endif %}
+
+            </div>
+
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
+                    <span class="fw-medium mb-0-600 small"> Hello ,{{ app.user.getNomU() }}</span>
+                    <img class="img-profile rounded-circle"
+                         src="{{ asset('FrontOffice/img/Bankiz/avatar.png') }}" height="50" width="50"
+                         style="border-radius: 50% ;">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                     aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{ path('profile') }}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Profil
+                    </a>
+                    <a class="dropdown-item" href="{{ path('mon_compte',{'id':app.user.id}) }}">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Compte Bancaire
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('logout') }}" data-toggle="modal" data-target="#logoutModal">
+{#                        <a class="dropdown-item" href="{{ path('login') }}" data-toggle="modal"#}
+{#                           data-target="#logoutModal">#}
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Déconnexion
+{#                        </a>#}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+{% endblock %}
+{% block carousel %}
+    <div style="background-image: url('{{ asset('FrontOffice/img/banko.jpg') }}');">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Effectuer une transaction bancaire</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="accueil">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="">Contact</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+
+    <div class="container-fluid bg-light p-0">
+
+        <div class="container-xxl py-5">
+
+            <div class="container">
+
+                {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+
+
+                <table>
+                    {# <tr> #}
+                    {# #}{# <th class="m-0 font-weight-bold text-dark">{{ form_label(form.RIB_emetteur, "RIB Emetteur") }} #}
+                    {# #}{# </th> #}
+                    {# #}{# <th>{{ form_widget(form.RIB_emetteur) }}</th> #}
+                    {# #}{# <td style="color: red;"> {{ form_errors(form.RIB_emetteur) }}</td> #}
+                    {# <th class="m-0 font-weight-bold text-dark">RIB Emetteur : {{ compte.ribcompte }}</th> #}
+                    {# </tr> #}
+                </table>
+                <table>
+                    {# <tr> #}
+                    {# #}{# <th class="m-0 font-weight-bold text-dark">{{ form_label(form.fullname_emetteur, "Nom Emetteur") }}</th> #}
+                    {# #}{# <th>{{ form_widget(form.fullname_emetteur) }}</th> #}
+                    {# #}{# <td style="color: red;"> {{ form_errors(form.fullname_emetteur) }}</td> #}
+                    {# <th class="m-0 font-weight-bold text-dark" style="display: block">Nom Emetteur : {{ compte.fullnameclient.nomu }}{{ ' ' }}{{ compte.fullnameclient.prenomu }}</th> #}
+                    {# </tr> #}
+                    <tr>
+                        <th class="m-0 font-weight-bold text-dark" >{{ form_label(form.RIB_recepteur, "RIB Récepteur") }}</th>
+                        <th>{{ form_widget(form.RIB_recepteur) }}</th>
+                        {# <td style="color: red;"> {{ form_errors(form.RIB_recepteur) }}</td> #}
+                    </tr>
+                    <tr>
+                        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.fullname_recepteur, "Nom récepteur") }}</th>
+                        <th>{{ form_widget(form.fullname_recepteur) }}</th>
+                        {# <td style="color: red;"> {{ form_errors(form.fullname_recepteur) }}</td> #}
+                    </tr>
+                    <tr>
+                        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.montant_transaction, "Montant Transaction") }}</th>
+                        <th>{{ form_widget(form.montant_transaction) }}</th>
+                        {# <td style="color: red;"> {{ form_errors(form.montant_transaction) }}</td> #}
+                    </tr>
+                    <tr>
+                        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.description_transaction, "Description Transaction") }}</th>
+                        <th>{{ form_widget(form.description_transaction) }}</th>
+                        {# <td style="color: red;"> {{ form_errors(form.description_transaction) }}</td> #}
+                    </tr>
+                    <tr>
+                        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.type_transaction, "Type Transaction") }}</th>
+                        <th>{{ form_widget(form.type_transaction) }}</th>
+                        {# <td style="color: red;"> {{ form_errors(form.type_transaction) }}</td> #}
+                    </tr>
+                    {# <tr> #}
+                    {# <th class="m-0 font-weight-bold text-dark">{{ form_label(form.etat_transaction, "Etat Transaction") }}</th> #}
+                    {# <th>{{ form_widget(form.etat_transaction) }}</th> #}
+                    {# <td style="color: red;"> {{ form_errors(form.etat_transaction) }}</td> #}
+                    {# </tr> #}
+                </table>
+                </tr>
+                <br>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

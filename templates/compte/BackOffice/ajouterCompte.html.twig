@@ -1,0 +1,60 @@
+{% extends 'compte/BackOffice/index.html.twig' %}
+
+{% block ajouter_compte %}
+    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+    {#    <tr>#}
+    {#        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.num_compte, "Numéro Compte") }}#}
+    {#        </th>#}
+    {#        <th>{{ form_widget(form.num_compte) }}</th>#}
+    {#        <td style="color: red;"> {{ form_errors(form.num_compte) }}</td>#}
+    {#    </tr>#}
+    {#    <tr>#}
+    {#        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.RIB_Compte, "RIB Compte") }}#}
+    {#        </th>#}
+    {#        <th>{{ form_widget(form.RIB_Compte) }}</th>#}
+    {#        <td style="color: red;"> {{ form_errors(form.RIB_Compte) }}</td>#}
+    {#    </tr>#}
+    <tr>
+        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.fullname_client, "Nom Client") }}</th>
+        <th>{{ form_widget(form.fullname_client) }}</th>
+        {#        <td style="color: red;"> {{ form_errors(form.fullname_client) }}</td>#}
+    </tr>
+    <tr>
+        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.solde_compte, "Solde Compte") }}</th>
+        <th>{{ form_widget(form.solde_compte) }}</th>
+        {#        <td style="color: red;"> {{ form_errors(form.solde_compte) }}</td>#}
+    </tr>
+    <tr>
+        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.seuil_compte, "Seuil Compte") }}</th>
+        <th>{{ form_widget(form.seuil_compte) }}</th>
+        {#        <td style="color: red;"> {{ form_errors(form.seuil_compte) }}</td>#}
+    </tr>
+    <tr>
+        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.taux_interet, "Taux D'intérêt") }}</th>
+        <th>{{ form_widget(form.taux_interet) }}</th>
+        {#        <td style="color: red;"> {{ form_errors(form.taux_interet) }}</td>#}
+    </tr>
+    <tr>
+        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.type_compte, "Type Compte") }}</th>
+        <th>{{ form_widget(form.type_compte) }}</th>
+        {#        <td style="color: red;"> {{ form_errors(form.type_compte) }}</td>#}
+    </tr>
+    {#    <tr>#}
+    {#        <th class="m-0 font-weight-bold text-dark">{{ form_label(form.etat_compte, "Etat Compte") }}</th>#}
+    {#        <th>{{ form_widget(form.etat_compte) }}</th>#}
+    {#        <td style="color: red;"> {{ form_errors(form.etat_compte) }}</td>#}
+    {#    </tr>#}
+    </table>
+    </tr>
+    <br>
+    {{ form_end(form) }}
+{% endblock %}
+{% block jsperso %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(function (){
+            $('.select-user').select2();
+        })
+    </script>
+{% endblock %}

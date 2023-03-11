@@ -1,0 +1,284 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}EL Bank - Transactions Bancaires{% endblock %}
+      {% block navbar %}
+          <!-- Sidebar -->
+          <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+              <!-- Sidebar - Brand -->
+              <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('dashboard_back') }}" style="background-color: white;">
+                  <div class="sidebar-brand-icon">
+                      <img src="{{ asset ('BackOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="100">
+                  </div>
+                  <!-- <div class="sidebar-brand-text mx-3">Bankiz</div> -->
+              </a>
+
+              <!-- Divider -->
+              <hr class="sidebar-divider my-0">
+
+              <!-- Nav Item - Dashboard -->
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('dashboard_back') }}">
+                      <i class="fas fa-fw fa-tachometer-alt"></i>
+                      <span>Dashboard</span></a>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('back_utilisateur') }}">
+                      <i class='fas fa-user-alt' style='font-size:17px'></i>
+                      <span>Utilisateurs</span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('back_reclamation') }}">
+                      <i class="fa fa-newspaper-o" style="font-size:17px"></i>
+                      <span>Réclamations</span></a>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+              {#            <li class="nav-item">#}
+              {#                <a class="nav-link" href="{{ path('blank_page_back') }}">#}
+              {#                    <i class='fas fa-file-signature' style='font-size:17px'></i>#}
+              {#                    <span>Assurances</span></a>#}
+              {#            </li>#}
+
+              <li class="nav-item">
+                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                     aria-expanded="true" aria-controls="collapseTwo">
+                      <i class="fas fa-fw fa-cog"></i>
+                      <span>Emprunts</span>
+                  </a>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                          <h6 class="collapse-header">Custom Components:</h6>
+                          <a class="collapse-item" href="{{ path('affichCredit') }}">Crédits</a>
+                          <a class="collapse-item" href="{{ path('affichOperationCredit') }} ">Opérations crédit</a>
+                      </div>
+                  </div>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('afficherCarte') }}">
+                      <i class='far fa-credit-card' style='font-size:17px'></i>
+                      <span>Cartes</span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('afficherCategorieCarte') }}">
+                      <i class='far fa-credit-card' style='font-size:17px'></i>
+                      <span>Categorie</span></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('afficherchequierb') }}">
+                      <i class='fas fa-money-check-alt' style='font-size:17px;'></i>
+                      <span>Chèques & Chéquiers</span></a>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('comptes') }}">
+                      <i class='fas fa-piggy-bank' style='font-size:17px;'></i>
+                      <span>Comptes Bancaires</span></a>
+              </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="{{ path('transactions') }}">
+                      <i class='fas fa-coins' style='font-size:17px;'></i>
+                      <span>Transactions</span></a>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+          </ul>
+      {% endblock %}
+
+{% block body %}
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    </svg>
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            <div>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-error d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div>
+                {{ message }}
+            </div>
+        </div>
+
+    {% endfor %}
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Transactions Bancaires</h1>
+        <!-- Basic Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Gestion des transactions bancaires</h6>
+            </div>
+            <div class="card-body">
+                <table>
+                    <td style="  vertical-align:top ; ">
+                        <table style="margin-right: 20px ; ">
+                            <form action="" method="POST">
+                                {# <tr> #}
+                                {# <th> #}
+                                {# <select value="sortselect" name="sortselect" class="input_back" #}
+                                {# style="width: 125px;"> #}
+                                {# <option value="tri_nom">Nom Emetteur</option> #}
+                                {# <option value="tri_date">Date transaction</option> #}
+                                {# <option value="tri_etat">Etat transaction</option> #}
+                                {# </select> #}
+                                {# <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" #}
+                                {# style="height: 35px; padding: 6px 15px; " href="{{ path('etatTrans') }}">Trier</a></th> #}
+                                {# </th> #}
+                                {# </tr> #}
+                                <th>Trier par :</th>
+                                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                       style="height: 35px; padding: 6px 15px; " href="{{ path('tri_nom_emetteur') }}">Nom
+                                        Emetteur</a></th>
+                                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                       style="height: 35px; padding: 6px 15px; " href="{{ path('tri_nom_recepteur') }}">Nom
+                                        Récépteur</a></th>
+                                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                       style="height: 35px; padding: 6px 15px; " href="{{ path('tri_date_trans') }}">Date
+                                        Transaction</a></th>
+                                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                       style="height: 35px; padding: 6px 15px; " href="{{ path('tri_etat_trans') }}">Etat
+                                        Transaction</a></th>
+                            </form>
+                        </table>
+                    </td>
+
+                    <table style="margin-right: 20px ; ">
+
+                    </table>
+                    <hr>
+                    </tr>
+                    <td>
+                        <table style="vertical-align:top ; ">
+                            <br>
+
+                            <tr>
+                                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                       style="height: 45px; padding: 10px 15px; "
+                                       href="{{ path('ajouter_transaction') }}">Ajouter une transaction</a></th>
+                                {# <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" #}
+                                {# style="height: 45px; padding: 10px 15px; " href="">Rechercher une transaction</a> #}
+                                </th>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <hr>
+                    <td>
+                        <div style="width: 100%; overflow: auto">
+                            <table style="border:1px solid black;border-collapse:collapse; vertical-align:center;  ">
+                                <tr class="table" style="border:1px solid black;border-collapse:collapse;">
+                                    <td class="table">RIB Emetteur</td>
+                                    <td class="table">Nom Emetteur</td>
+                                    <td class="table">RIB Récepteur</td>
+                                    <td class="table">Nom Récepteur</td>
+                                    <td class="table">Montant Transaction</td>
+                                    <td class="table">Type Transaction</td>
+                                    <td class="table">Description Transaction</td>
+                                    <td class="table">Date Transaction</td>
+                                    <td class="table">Etat transaction</td>
+                                </tr>
+                                {% for trans in transactions %}
+                                <tr style="border:1px solid black;border-collapse:collapse; vertical-align:center; text-align:center;">
+                                    <td style="font-size: 15px;">{{ trans.RIBemetteur.RIBCompte }}</td>
+                                    <td style="font-size: 15px;">{{ trans.fullnameemetteur.fullnameclient.nomu }}{{ ' ' }}{{ trans.fullnameemetteur.fullnameclient.prenomu }}</td>
+                                    <td style="font-size: 15px;">{{ trans.RIBrecepteur }}</td>
+                                    <td style="font-size: 15px;">{{ trans.fullnamerecepteur }}</td>
+                                    <td style="font-size: 15px;">{{ trans.montanttransaction }}</td>
+                                    <td style="font-size: 15px;">{{ trans.typetransaction }}</td>
+                                    <td style="font-size: 15px;">{{ trans.descriptiontransaction }}</td>
+                                    <td style="font-size: 15px;">{{ trans.datetransaction |date('d-m-Y') }}</td>
+                                    {% if trans.etattransaction == 0 %}
+                                        <td>En cours
+                                            <table align="center">
+                                                <tr>
+                                                    <td>
+{#                                                        {% if trans.datetransaction|date('d-m-Y H:i:s')-'now'|date('d-m-Y H:i:s') %}#}
+                                                        <form action="{{ path('annuler_trans_back',{'id':trans.id}) }}">
+                                                            <button style="border-color: red; background-color: red; color: white">
+                                                                <i class="fa fa-close" style="font-size:18px"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <form action="{{ path('valider_trans_back',{'id':trans.id}) }}">
+                                                            <button style="border-color: #032a5f; background-color: #032a5f; color: white">
+                                                                <i class="fa fa-check" style="font-size:18px"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <form action="{{ path('modifier_transaction',{'id':trans.id}) }}">
+                                                <button style="border-color: #ffc650; background-color: #ffc650"><i
+                                                            class='fas fa-edit' style='font-size:20px color: white'></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="{{ path('supprimerTransaction',{'id':trans.id}) }}">
+                                                <button style="border-color: red; background-color: red"><i
+                                                            class='fas fa-trash'
+                                                            style='font-size:18px; color: white'></i>
+                                            </form>
+                                        </td>
+                                    {% elseif trans.etattransaction == 1 %}
+                                        <td>Aboutie
+                                        </td>
+                                    {% elseif trans.etattransaction == 2 %}
+                                        <td>Annulée
+                                        </td>
+                                        <td>
+                                            <form action="{{ path('supprimerTransaction',{'id':trans.id}) }}">
+                                                <button style="border-color: red; background-color: red"><i
+                                                            class='fas fa-trash'
+                                                            style='font-size:18px; color: white'></i>
+                                            </form>
+                                        </td>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </table>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block jsperso %}
+
+{% endblock %}

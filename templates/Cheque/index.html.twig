@@ -1,0 +1,37 @@
+{% extends 'base_front_connecte.html.twig' %}
+
+{% block title %}EL Bank - Cheque{% endblock %}
+
+{% block carousel %}
+
+    <div class="container-xxl py-5">
+    <div class="container">
+    <div class="section-title text-center">
+    </div>
+    <div class="row g-4">
+    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="service-item">
+            <div class="overflow-hidden">
+                <img class="img-fluid" src="{{ asset('FrontOffice/img/img.png') }}" alt="">
+            </div>
+            <div class="p-4 text-center border border-5 border-light border-top-0">
+                <h4 class="mb-3">Demander un chéquier</h4>
+                <a class="fw-medium" href="{{ path('AjouterChequier', {'id':app.user.id}) }}" style="color: #ffc650;" >Cliquez ici<i class="fa fa-arrow-right ms-2" ></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+    <div class="service-item">
+        <div class="overflow-hidden">
+            <img class="img-fluid" src="{{ asset('FrontOffice/img/img_1.png') }}" alt="">
+        </div>
+        <div class="p-4 text-center border border-5 border-light border-top-0">
+            <h4 class="mb-3">Mon chéquier</h4>
+            <a class="fw-medium" href="{{ asset('afficheE') }}" style="color: #ffc650;" >Cliquez ici<i class="fa fa-arrow-right ms-2"></i></a>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,272 @@
+{% extends 'base_front_connecte.html.twig' %}
+{% block header %}
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light p-0">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                    <small>06, Bloc I - Esprit, El Ghazela</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center py-3">
+                    <small class="far fa-clock text-primary me-2"></small>
+                    <small>Mon - Fri : 08.00 AM - 07.00 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-phone-alt text-primary me-2"></small>
+                    <small>+216 12 345 678</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"
+                                                                                       style="color: #032a5f;"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-0" href=""><i class="fab fa-instagram"
+                                                                                       style="color: #032a5f;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+        <a href="{{ path('base_front_connecte') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img src="{{ asset('FrontOffice/img/Bankiz/logo.png') }}" alt="Bankiz" width="150">
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{ path('base_front_connecte') }}" class="nav-item nav-link">Acceuil</a>
+                {#                <a href="{{ path('categoriecartefront') }}" class="nav-item nav-link">Assurances</a>#}
+                <a href="{{ path('afficherOC_front') }}" class="nav-item nav-link">Emprunts</a>
+                <a href="{{ path('categoriecartefront') }}" class="nav-item nav-link">Cartes</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Transactions</a>
+                    <div class="dropdown-menu fade-up m-0">
+                        {#                        <a href="{{ path('notfound') }}" class="dropdown-item">Via Cartes Bancaires</a>#}
+                        <a href="{{ path('cheque') }}" class="dropdown-item">Via Chèques</a>
+                        <a href="{{ path('effectuer_transaction', {'id':app.user.id}) }}" class="dropdown-item">Via
+                            Compte Bancaire</a>
+                        <!-- <a href="404.html" class="dropdown-item">404 Page</a> -->
+                    </div>
+                </div>
+
+                {#                <div class="nav-item dropdown">#}
+                {#                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Indicateur Financier</a>#}
+                {#                    <div class="dropdown-menu fade-up m-0">#}
+                {#                        <a href="{{ path('notfound') }}" class="dropdown-item">Cours des devises</a>#}
+                {#                        <a href="{{ path('notfound') }}" class="dropdown-item">Cours des Crypto-monnaies</a>#}
+                {#                        <a href="{{ path('notfound') }}" class="dropdown-item">Convertisseur</a>#}
+                {#                        <!-- <a href="404.html" class="dropdown-item">404 Page</a> -->#}
+                {#                    </div>#}
+                {#                </div>#}
+
+                <a href="{{ path('ajouterRec') }}" class="nav-item nav-link">Reclamation</a>
+                {% if is_granted('ROLE_EMPLOYEE') %}
+                    <a href="{{ path('admin') }}" class="nav-item nav-link">Back</a>
+                {% endif %}
+
+            </div>
+
+            <div class="nav-item dropdown active">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
+                    <span class="fw-medium mb-0-600 small"> Hello ,{{ app.user.getNomU() }}</span>
+                    <img class="img-profile rounded-circle"
+                         src="{{ asset('FrontOffice/img/Bankiz/avatar.png') }}" height="50" width="50"
+                         style="border-radius: 50% ;">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                     aria-labelledby="userDropdown">
+                    <a class="dropdown-item active" href="{{ path('profile') }}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Profil
+                    </a>
+                    <a class="dropdown-item" href="{{ path('mon_compte',{'id':app.user.id}) }}">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Compte Bancaire
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('logout') }}" data-toggle="modal" data-target="#logoutModal">
+                        {#                        <a class="dropdown-item" href="{{ path('login') }}" data-toggle="modal"#}
+                        {#                           data-target="#logoutModal">#}
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Déconnexion
+                        {#                        </a>#}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+{% endblock %}
+{% block carousel %}
+    <div class="container-fluid page-header py-5 mb-5">
+        <div class="container py-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Bienvenue {{ app.user.getNomU() }} {{ app.user.getPrenomU() }}</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Modifier votre profile chez Bankiz</a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="grix xs4 container">
+        {{ form_start(formEdit , {'attr':{'novalidate':'novalidate'}}) }}
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">CIN</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ form_widget(formEdit.cin_u) }}
+                        </div>
+                        <div style="color: red">
+                            {{ form_errors(formEdit.cin_u) }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Nom</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ form_widget(formEdit.nom_u) }}
+                        </div>
+                        <div style="color: red">
+                            {{ form_errors(formEdit.nom_u) }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Prenom</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ form_widget(formEdit.prenom_u) }}
+                        </div>
+                        <div style="color: red">
+                            {{ form_errors(formEdit.prenom_u) }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Date naissance</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ form_widget(formEdit.date_naissance) }}
+                        </div>
+                        <div style="color: red">
+                            {{ form_errors(formEdit.date_naissance) }}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Numero telephone</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            {{ form_widget(formEdit.num_tel) }}
+                        </div>
+                        <div style="color: red">
+                            {{ form_errors(formEdit.num_tel) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                    style="height: 45px; padding: 10px 15px; background-color: #1c294e ">Editer</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{ form_end(formEdit) }}
+    </div>
+    {# <table>
+        {{ form_start(formEdit , {'attr':{'novalidate':'novalidate'}}) }}
+
+        <tr>
+            <td>
+                <div class="pb-lg-2 pe-lg-0">
+                    {{ form_label(formEdit.cin_u,"Cin") }}
+                    {{ form_widget(formEdit.cin_u) }}
+                </div>
+            </td>
+            <td style="color:red;">
+                {{ form_errors(formEdit.cin_u) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div  class="pb-lg-2 pe-lg-0">
+                    {{ form_label(formEdit.nom_u,"Nom") }}
+                    {{ form_widget(formEdit.nom_u) }}
+                </div>
+            </td>
+            <td style="color:red;">
+                {{ form_errors(formEdit.nom_u) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="pb-lg-2 pe-lg-0">
+                    {{ form_label(formEdit.prenom_u,"Prenom") }}
+                    {{ form_widget(formEdit.prenom_u) }}
+                </div>
+            </td>
+            <td style="color:red;">
+                {{ form_errors(formEdit.prenom_u) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="pb-lg-2 pe-lg-0">
+                    {{ form_label(formEdit.date_naissance,"Date naissance") }}
+                    {{ form_widget(formEdit.date_naissance) }}
+                </div>
+            </td>
+            <td style="color:red;">
+                {{ form_errors(formEdit.date_naissance) }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="pb-lg-2 pe-lg-0">
+                    {{ form_label(formEdit.num_tel,"Numero Telephone") }}
+                    {{ form_widget(formEdit.num_tel) }}
+                </div>
+            </td>
+            <td style="color:red;">
+                {{ form_errors(formEdit.num_tel) }}
+            </td>
+        </tr>
+
+    </table>
+    <button type="submit" class="btn btn-success">Editer</button>
+
+    {{ form_end(formEdit) }}
+    #}
+{% endblock %}
